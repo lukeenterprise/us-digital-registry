@@ -8,6 +8,6 @@ class GovEmailValidator < ActiveModel::EachValidator
   end
 
   def gov_address?(email_address)
-    email_address =~ /\A[\w+\-.]+@[a-z\d\-.]+\.(gov|mil)\z/i
+    email_address =~ /\A[\w+\-.]+@[a-z\d\-.]+\.(gov|mil|fed\.us)\z/i
   end
 end
