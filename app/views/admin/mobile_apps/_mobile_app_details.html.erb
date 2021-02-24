@@ -1,22 +1,22 @@
 <p>
   <strong>Name:</strong>
-  <%= html_safe(mobile_app.name) %>
+  <%= mobile_app.name %>
 </p>
 
 <p>
   <strong>Short Description:</strong>
-  <%= html_safe(mobile_app.short_description) %>
+  <%= mobile_app.short_description %>
 </p>
 
 <p>
   <strong>Long Description:</strong>
-  <%= html_safe(mobile_app.long_description) %>
+  <%= mobile_app.long_description %>
 </p>
 
 <p>
   <strong>Icon URL:</strong>
   <% if mobile_app.icon_url %>
-  <%= link_to mobile_app.icon_url, html_safe(mobile_app.icon_url) %>
+  <%= link_to mobile_app.icon_url, mobile_app.icon_url %>
   <% end %>
 </p>
 <p>
@@ -53,17 +53,17 @@
     </div>
     <div id="collapse<%= "#{random}#{index}" %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-        <strong>Store URL:</strong> <%= link_to mav.store_url, html_safe(mav.store_url), :target => "_blank" %> </br>
+        <strong>Store URL:</strong> <%= link_to mav.store_url, mav.store_url, :target => "_blank" %> </br>
         <strong>Device:</strong> <%= mav.device %> </br>
         <strong>Platform:</strong> <%= mav.platform %> </br>
-        <strong>Version Number:</strong> <%= html_safe(mav.version_number) %> </br>
+        <strong>Version Number:</strong> <%= mav.version_number %> </br>
         <!-- <strong>Description:</strong> <%= mav.description %></br> -->
-        <!-- <strong>What is new:</strong> <%= mav.whats_new %></br> -->
-        <strong>Screenshot:</strong> <%= html_safe(mav.screenshot) %></br>
+        <!-- <strong>What's new:</strong> <%= mav.whats_new %></br> -->
+        <strong>Screenshot:</strong> <%= mav.screenshot %></br>
         <strong>Publish Date:</strong> <%= mav.publish_date.strftime("%B %e, %Y %H:%M") if mav.publish_date %> </br>
         <!-- <strong>Language:</strong> <%= mav.language %> </br> -->
-        <strong>Average Rating:</strong> <%= html_safe(mav.average_rating) %> </br>
-        <strong>Number of Ratings:</strong> <%= html_safe(mav.number_of_ratings) %>
+        <strong>Average Rating:</strong> <%= mav.average_rating %> </br>
+        <strong>Number of Ratings:</strong> <%= mav.number_of_ratings %>
       </div>
     </div>
   </div>
