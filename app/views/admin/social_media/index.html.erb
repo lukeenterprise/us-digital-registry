@@ -125,7 +125,7 @@
         "columnDefs": [
           {
             "render": function(data,type,row){
-              return '<a href="/admin/social_media/'+row.DT_RowId+'">'+escape(data)+'</a>';
+              return '<a href="/admin/social_media/'+row.DT_RowId+'">'+data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</a>';
             }, "targets":[3]
           }
         ],
