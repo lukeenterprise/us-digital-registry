@@ -52,7 +52,7 @@
         "columnDefs": [
           {
             "render": function(data,type,row){
-              return '<a href="/admin/services/'+data+'">Info</a>';
+              return '<a href="/admin/services/'+data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'">Info</a>';
             }, "targets":[3]
           }
         ],

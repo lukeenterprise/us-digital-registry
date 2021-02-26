@@ -49,7 +49,7 @@
         "columnDefs": [
           {
             "render": function(data,type,row){
-              return '<a href="/admin/agencies/'+data+'">info</a>';
+              return '<a href="/admin/agencies/'+data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'">info</a>';
             }, "targets":[4]
           }
         ],
