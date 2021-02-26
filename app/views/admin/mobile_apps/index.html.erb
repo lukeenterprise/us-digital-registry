@@ -124,7 +124,7 @@
         "columnDefs": [
           {
             "render": function(data,type,row){
-              return '<a href="/admin/mobile_apps/'+row.DT_RowId+'">'+data+'</a>';
+              return '<a href="/admin/mobile_apps/'+row.DT_RowId+'">'+data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</a>';
             }, "targets":[2]
           }
         ],
