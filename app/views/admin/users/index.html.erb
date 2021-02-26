@@ -63,7 +63,7 @@
         "columnDefs": [
           {
             "render": function(data,type,row){
-              return '<a href="/admin/users/'+data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'">Info</a> <a href="/admin/users/'+data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'/edit">Edit</a>';
+              return '<a href="/admin/users/'+data+'">Info</a> <a href="/admin/users/'+data+'/edit">Edit</a>';
             }, "targets":[5]
           }
         ],
