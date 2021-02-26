@@ -1,16 +1,16 @@
 <p>
   <strong>Name:</strong>
-  <%= "".html_safe + mobile_app.name %>
+  <%= (mobile_app.name).html_safe %>
 </p>
 
 <p>
   <strong>Short Description:</strong>
-  <%="".html_safe + mobile_app.short_description %>
+  <%= (mobile_app.short_description).html_safe %>
 </p>
 
 <p>
   <strong>Long Description:</strong>
-  <%= "".html_safe + mobile_app.long_description %>
+  <%= mobile_app.long_description+"".html_safe %>
 </p>
 
 <p>
