@@ -42,7 +42,7 @@ module Admin::AdminHelper
   def user_list_format(user)
     if user
       if user.first_name && user.last_name
-        "#{user.try(:first_name).html_safe} #{user.try(:last_name)} -* <a href=\"mailto:#{user.email}\">#{user.email}</a>".html_safe
+        "".html_safe + "#{user.try(:first_name).html_safe} #{user.try(:last_name)} -* <a href=\"mailto:#{user.email}\">#{user.email}</a>".html_safe
       else
         "<a href=\"mailto:#{user.email}\">#{user.email}</a>".html_safe
       end
