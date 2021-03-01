@@ -151,14 +151,14 @@ class Admin::SocialMediaController < Admin::AdminController
     @outlet.published!
     @outlet.build_notifications(:published)
     ELASTIC_SEARCH_CLIENT.index  index: 'outlets', type: 'outlet', id: @outlet.id, body: @outlet.as_indexed_json
-    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account: #{@outlet.organization}, is now published. #{view_context.link_to 'Undo', archive_admin_outlet_path(@outlet)}".html_safe
+    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account:".html_safe+" #{@outlet.organization}, is now published. #{view_context.link_to 'Undo', archive_admin_outlet_path(@outlet)}".html_safe
   end
 
   def validate
     @outlet.validated_at = Time.now
     @outlet.save(validate: false)
     @outlet.create_activity :certified
-    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account: #{@outlet.organization}, is now published. #{view_context.link_to 'Undo', archive_admin_outlet_path(@outlet)}".html_safe
+    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account:".html_safe+" #{@outlet.organization}, is now published. #{view_context.link_to 'Undo', archive_admin_outlet_path(@outlet)}".html_safe
   end
 
 
