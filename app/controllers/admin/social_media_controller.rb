@@ -167,19 +167,19 @@ class Admin::SocialMediaController < Admin::AdminController
     @outlet.archived!
     @outlet.build_notifications(:archived)
     ELASTIC_SEARCH_CLIENT.index  index: 'outlets', type: 'outlet', id: @outlet.id, body: @outlet.as_indexed_json
-    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account: #{@outlet.organization}, is now archived. #{view_context.link_to 'Undo', publish_admin_outlet_path(@outlet)}".html_safe
+    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account:".html_safe+"#{@outlet.organization}"+", is now archived. #{view_context.link_to 'Undo', publish_admin_outlet_path(@outlet)}".html_safe
   end
 
   def request_publish
     @outlet.publish_requested!
     # @outlet.build_notifications(:publish_requested)
-    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account: #{@outlet.organization}, has a request in with admins to be published."
+    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account:".html_safe+"#{@outlet.organization}"+", has a request in with admins to be published."
   end
 
   def request_archive
     @outlet.archive_requested!
     # @outlet.build_notifications(:archive_requested)
-    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account: #{@outlet.organization}, has a request in with admins to be archived."
+    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account:".html_safe+"#{@outlet.organization}"+", has a request in with admins to be archived."
   end
 
   private

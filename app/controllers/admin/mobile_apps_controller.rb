@@ -159,19 +159,19 @@ class Admin::MobileAppsController < Admin::AdminController
     @mobile_app.archived!
     @mobile_app.build_notifications(:archived)
     ELASTIC_SEARCH_CLIENT.index  index: 'mobile_apps', type: 'mobile_app', id: @mobile_app.id, body: @mobile_app.as_indexed_json
-    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App: #{@mobile_app.name}, is now archived. #{view_context.link_to 'Undo', publish_admin_mobile_app_path(@mobile_app)}".html_safe
+    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App: ".html_safe+"#{@mobile_app.name}"+", is now archived. #{view_context.link_to 'Undo', publish_admin_mobile_app_path(@mobile_app)}".html_safe
   end
 
   def request_publish
     @mobile_app.publish_requested!
     @mobile_app.build_notifications(:publish_requested)
-    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App: #{@mobile_app.name}, has a request in with admins to be published."
+    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App: ".html_safe+"#{@mobile_app.name}"+", has a request in with admins to be published."
   end
 
   def request_archive
     @mobile_app.archive_requested!
     @mobile_app.build_notifications(:archive_requested)
-    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App: #{@mobile_app.name}, has a request in with admins to be archived."
+    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App: ".html_safe+"#{@mobile_app.name}"+", has a request in with admins to be archived."
   end
 
   def version_details_for_url

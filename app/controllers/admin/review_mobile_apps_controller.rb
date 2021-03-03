@@ -41,7 +41,7 @@ class Admin::ReviewMobileAppsController < Admin::AdminController
     @mobile_app.touch
     @mobile_app.archived!
     # @mobile_app.build_notifications(:archived)
-    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App: #{@mobile_app.name}, is now archived. #{view_context.link_to 'Undo', publish_admin_mobile_app_path(@mobile_app)}".html_safe
+    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App:".html_safe+"#{@mobile_app.name}"+", is now archived. #{view_context.link_to 'Undo', publish_admin_mobile_app_path(@mobile_app)}".html_safe
   end
 
   private

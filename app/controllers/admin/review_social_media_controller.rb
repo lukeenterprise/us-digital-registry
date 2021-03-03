@@ -41,7 +41,7 @@ class Admin::ReviewSocialMediaController < Admin::AdminController
     @outlet.touch
     @outlet.archived!
     # @outlet.build_notifications(:archived)
-    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account: #{@outlet.organization}, is now archived. #{view_context.link_to 'Undo', publish_admin_outlet_path(@outlet)}".html_safe
+    redirect_to admin_outlet_path(@outlet), :notice => "Social Media Account:".html_safe+"#{@outlet.organization}"+", is now archived. #{view_context.link_to 'Undo', publish_admin_outlet_path(@outlet)}".html_safe
   end
 
   private
