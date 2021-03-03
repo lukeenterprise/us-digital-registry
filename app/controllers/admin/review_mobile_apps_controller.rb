@@ -27,14 +27,14 @@ class Admin::ReviewMobileAppsController < Admin::AdminController
     @mobile_app.published!
     @mobile_app.validated_at = Time.now
     @mobile_app.save(validate: false)
-    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App:".html_safe+"#{@mobile_app.name}, is now published. #{view_context.link_to 'Undo', archive_admin_mobile_app_path(@mobile_app)}".html_safe
+    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App:".html_safe+"#{@mobile_app.name}"+", is now published. #{view_context.link_to 'Undo', archive_admin_mobile_app_path(@mobile_app)}".html_safe
   end
   
   def validate
     @mobile_app.validated_at = Time.now
     @mobile_app.save(validate: false)
     @mobile_app.create_activity :certified
-    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App:".html_safe+"#{@mobile_app.name}, is now published. #{view_context.link_to 'Undo', archive_admin_mobile_app_path(@mobile_app)}".html_safe
+    redirect_to admin_mobile_app_path(@mobile_app), :notice => "Mobile App:".html_safe+"#{@mobile_app.name}"+", is now published. #{view_context.link_to 'Undo', archive_admin_mobile_app_path(@mobile_app)}".html_safe
   end
 
   def archive
