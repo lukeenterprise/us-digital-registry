@@ -70,13 +70,6 @@
           },
           {
             "render": function(data,type,row){
-              if(data){
-              return data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-            }
-            }, "targets":[1]
-          },
-          {
-            "render": function(data,type,row){
               return '<a href="/admin/users/'+data+'">Info</a> <a href="/admin/users/'+data+'/edit">Edit</a>';
             }, "targets":[5]
           }
