@@ -53,6 +53,13 @@ class User < ActiveRecord::Base
   paginates_per 200
 
 
+  def authenticable_salt
+    "#{super}#{session_token}"
+  end
+  def invalidate_session!
+    self.session_token=SecureRandom.hex
+  end
+
   def self.from_omniauth(auth)
     if(auth.info.email.end_with?(".gov") || auth.info.email.end_with?(".mil"))
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
