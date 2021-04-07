@@ -1,6 +1,7 @@
 
   # Assists in RP-initiated logout: https://developers.login.gov/oidc/#logout
       # @example RP-initiated logout in Rails controller
+      module Users
         class SessionsController < Devise::SessionsController
           def destroy
               logout_request = self.class.logout_utility.build_request(id_token: session[:id_token],
@@ -16,4 +17,4 @@
               OmniAuth::LoginDotGov::LogoutUtility.new(idp_base_url: Rails.configuration.oidc['idp_url'])
           end
         end
-      
+      end
