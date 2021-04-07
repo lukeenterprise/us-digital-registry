@@ -15,9 +15,5 @@
             @logout_utility ||=
               OmniAuth::LoginDotGov::LogoutUtility.new(idp_base_url: Rails.configuration.oidc['idp_url'])
           end
-<<<<<<< HEAD:app/controllers/users/sessions_controller.rb
         end
       end
-=======
-        end
->>>>>>> parent of fc9f185 (adding sessions):app/controllers/sessions_controller.rb
