@@ -19,6 +19,8 @@
             @logout_utility ||=
               OmniAuth::LoginDotGov::LogoutUtility.new(idp_base_url: ENV['REGISTRY_IDP'])
           end
+
         end
       end
       
+
