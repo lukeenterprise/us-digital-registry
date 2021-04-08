@@ -13,7 +13,7 @@
           # Avoid making multiple HTTP requests to determine logout URL by memoizing utility class
           def self.logout_utility
             @logout_utility ||=
-              OmniAuth::LoginDotGov::LogoutUtility.new(idp_base_url: Rails.configuration.oidc['idp_url'])
+              OmniAuth::LoginDotGov::LogoutUtility.new(idp_base_url: 'https://idp.int.identitysandbox.gov/')
           end
         end
       end
