@@ -4,7 +4,7 @@
         class SessionsController < Devise::SessionsController
           def destroy
             logout_request = self.class.logout_utility.build_request(id_token: session[:id_token],
-              post_logout_redirect_uri: 'http://localhost:3001/'
+              post_logout_redirect_uri: 'https://www.google.com'
             )
             sign_out(current_user)
             redirect_to(logout_request.redirect_uri) and return
@@ -13,7 +13,8 @@
           # Avoid making multiple HTTP requests to determine logout URL by memoizing utility class
           def self.logout_utility
             @logout_utility ||=
-              OmniAuth::LoginDotGov::LogoutUtility.new(idp_base_url: 'https://idp.int.identitysandbox.gov/')
+              OmniAuth::LoginDotGov::LogoutUtility.new(idp_base_url: ENV['REGISTRY_ID'])
           end
         end
       end
+      
