@@ -35,7 +35,7 @@ module OmniAuth
             @end_session_endpoint = idp_configuration.end_session_endpoint
           else
             configuration = OmniAuth::LoginDotGov::IdpConfiguration.new(idp_base_url: idp_base_url)
-            @end_session_endpoint = configuration.end_session_endpoint
+            # @end_session_endpoint = configuration.end_session_endpoint
           end
         end
   
@@ -55,7 +55,7 @@ module OmniAuth
           logout_params = { state: state, id_token_hint: id_token, post_logout_redirect_uri: post_logout_redirect_uri }
   
           Request.new(
-            "#{@end_session_endpoint}?#{logout_params.to_query}",
+            "https://idp.int.identitysandbox.gov/openid_connect/logout?#{logout_params.to_query}",
             state
           )
         end
