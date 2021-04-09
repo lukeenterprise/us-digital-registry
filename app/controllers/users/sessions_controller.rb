@@ -3,6 +3,7 @@
       module Users
         class SessionsController < Devise::SessionsController
           def destroy
+            Rails.logger.info session
             logout_request = self.class.logout_utility.build_request(id_token: session[:id_token],
               post_logout_redirect_uri: 'https://www.google.com'
             )

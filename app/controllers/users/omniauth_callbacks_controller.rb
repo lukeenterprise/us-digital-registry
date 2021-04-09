@@ -2,7 +2,9 @@
 module Users
   class OmniauthCallbacksController < ApplicationController
     def login_dot_gov
+      Rails.logger.info 'logging amniauth info'
       omniauth_info = request.env['omniauth.auth']['info']
+      Rails.logger.info request.env['omniauth.auth']
       @user = User.find_by(email: omniauth_info['email'])
       if @user
         @user.update!(user: omniauth_info['uuid'])
