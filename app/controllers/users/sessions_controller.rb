@@ -4,11 +4,10 @@
         class SessionsController < Devise::SessionsController
           def destroy
             Rails.logger.info 'logging session'
-            Rails.logger.info session.inspect
             Rails.logger.info session[:id_token]
-            Rails.logger.info 'logging session end'
+            Rails.logger.info redirect_to root_path
             logout_request = self.class.logout_utility.build_request(id_token: session[:id_token],
-              post_logout_redirect_uri: root_path
+              post_logout_redirect_uri:'http://usdigitalregistry-stg.gsa-ecas.cloud'
             )
             sign_out(current_user)
             redirect_to(logout_request.redirect_uri) and return
