@@ -5,10 +5,10 @@
           def destroy
             Rails.logger.info 'logging session'
             Rails.logger.info session[:id_token]
-            homepath=root_path
+            homepath=redirect_to root_path
             Rails.logger.info homepath
             logout_request = self.class.logout_utility.build_request(id_token: session[:id_token],
-              post_logout_redirect_uri:homepath
+              post_logout_redirect_uri:ENV['REGISTRY_HOMEPAGE']
             )
             sign_out(current_user)
             redirect_to(logout_request.redirect_uri) and return
