@@ -4,10 +4,11 @@
         class SessionsController < Devise::SessionsController
           def destroy
             Rails.logger.info 'logging session'
-            Rails.logger.info ENV['REGISTRY_HOSTNAME']
+            homepage='https://'+ENV['REGISTRY_HOSTNAME']
+            Rails.logger.info homepage
             Rails.logger.info ENV['REGISTRY_HOMEPAGE']
             logout_request = self.class.logout_utility.build_request(id_token: session[:id_token],
-              post_logout_redirect_uri:ENV['REGISTRY_HOSTNAME']
+              post_logout_redirect_uri:homepage
             )
             sign_out(current_user)
             redirect_to(logout_request.redirect_uri) and return
