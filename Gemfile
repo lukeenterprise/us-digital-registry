@@ -33,7 +33,7 @@ gem 'to_regexp'
 gem "devise"
 # Integrate devise with a CAS service (here we use OMB Max)
 # gem 'devise_cas_authenticatable'
-gem 'omniauth_login_dot_gov', :git => 'https://github.com/18f/omniauth_login_dot_gov.git', :ref => '7b8c917'
+gem 'omniauth_login_dot_gov', :git => 'https://github.com/ctacdev/omniauth_login_dot_gov.git', :ref => '456ad85'
 
 # Tagging support
 gem 'acts-as-taggable-on'
