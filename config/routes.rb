@@ -153,7 +153,7 @@
 #                                        admin GET      /admin(.:format)                                                                         admin/dashboards#index
 #        user_login_dot_gov_omniauth_authorize GET|POST /users/auth/login_dot_gov(.:format)                                                      users/omniauth_callbacks#passthru
 #         user_login_dot_gov_omniauth_callback GET|POST /users/auth/login_dot_gov/callback(.:format)                                             users/omniauth_callbacks#login_dot_gov
-#                         destroy_user_session GET      /sign_out(.:format)                                                                      devise/sessions#destroy
+#                         destroy_user_session GET      /sign_out(.:format)                                                                      users/sessions#destroy
 #                 digital_registry_v1_agencies GET      /digital-registry/v1/agencies(.:format)                                                  digital_registry/v1/agencies#index {:format=>:json}
 #                   digital_registry_v1_agency GET      /digital-registry/v1/agencies/:id(.:format)                                              digital_registry/v1/agencies#show {:format=>:json}
 #      verify_digital_registry_v1_social_media GET      /digital-registry/v1/social_media/verify(.:format)                                       digital_registry/v1/social_media#verify {:format=>:json}
@@ -332,7 +332,7 @@ Ringsail::Application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
 	devise_scope :user do
-		get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+		get 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_user_session
 	end
 
 
