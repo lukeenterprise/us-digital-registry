@@ -1,20 +1,27 @@
 require File.expand_path('../boot', __FILE__)
-
-secrets_file = File.expand_path('../too_many_secrets', __FILE__)
-require secrets_file if File.exists?(secrets_file + '.rb')
-
+require 'csv'
 require 'rails/all'
-require 'rack/jsonp'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  Bundler.require(*Rails.groups)
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+
 module Ringsail
   class Application < Rails::Application
+
+    # insert rack cors first
+    # config.middleware.insert_before 0, "Rack::Cors" do
+    #   allow do
+    #     origins '*'
+    #     resource '/api/*', :headers => :any, :methods => [:get, :post, :options]
+    #     resource '/swagger_docs/*', :headers => :any, :methods => [:get, :post, :options]
+    #   end
+    # end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -41,7 +48,8 @@ module Ringsail
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    # We are using SSO, so this should be unecessary. Confirm and then remove.
+    config.filter_parameters += [:password, :password_confirmation]
 
     # Enable the asset pipeline
     config.assets.enabled = true
@@ -49,11 +57,15 @@ module Ringsail
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
-    # Allow API clients to use JSONP callbacks
-    config.middleware.use Rack::JSONP
-    
+
+    config.assets.precompile += %w( admin.css admin.js public.css public.js swagger.css swagger.js )
+
     # Put compiled JS and CSS assets in a proxy-friendly path
-    config.assets.prefix = "/social-media/social-media-registry/accounts/assets"
+    #config.assets.prefix = "/social-media/social-media-registry/accounts/assets"
+
+    # Added by Jake, 6/22/2016: tag logging for Docker
+    config.log_level = :debug
+    config.log_tags  = [:subdomain, :uuid]
+    config.logger    = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
   end
 end

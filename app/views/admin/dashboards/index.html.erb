@@ -1,0 +1,127 @@
+<section class="usa-section" id="resources_featured">
+  
+  <div class="grid-container grid-container-desktop">
+    <div class="grid-row tablet-lg:grid-gap-4">
+      <div class="grid-col-12">
+        <%= content_for :page_title do %>U.S. Digital Registry<% end %>
+        <h1 class="page-header">U.S. Digital Registry</h1>
+      </div>
+    </div>
+  </div>
+<section class="usa-section" id="hotspot_featured" >
+  <div class="paper">
+    <div class="grid-container grid-container-desktop">
+      <div class="grid-row">
+  	  	<div class="grid-col-5 grid-offset-1">
+          <div class="activity-trackers">
+  		  		<h2>Social Media</h2>
+            <ul class="unstyled-list add-list-rese dashboard-list">
+              <li><%= link_to "Add a Social Media Account", new_admin_outlet_path, class: "btn btn-default" %></li>
+              <li><%= link_to "Update Social Media Accounts",  admin_review_social_media_path, class: "btn btn-default" %></li>
+              <li><%= link_to "View Social Media Accounts", admin_outlets_path, class: "btn btn-default" %></li>
+            </ul>
+          </div>
+  			</div>
+  			<div class="grid-col-5 grid-offset-1">
+          <div class="activity-trackers">
+  	        <h2>Mobile Products</h2>
+            <ul class="unstyled-list add-list-reset dashboard-list">
+              <li><%= link_to "Add a Mobile Product", new_admin_mobile_app_path, class: "btn btn-default" %></li>
+              <li><%= link_to "Update Mobile Products",  admin_review_mobile_apps_path , class: "btn btn-default"%></li>
+              <li><%= link_to "View Mobile Products", admin_mobile_apps_path, class: "btn btn-default" %></li>
+            </ul>
+          </div>
+  			</div>
+  		</div>
+    </div>
+  </div>
+</section>
+
+<section class="usa-section" id="activity_featured" >
+  <div class="paper">
+    <div class="grid-container grid-container-desktop">
+      <div class="grid-row">
+        <div class="grid-col-5 grid-offset-1">
+          <div class="activity-trackers">
+            <h2>Social Media Activity</h2>
+            <table class="usa-table usa-table--borderless dashboard-table">
+              <caption>Social Media Activity</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Activity</th>
+                  <th scope="col">Volume</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Created last 30 Days:</th>
+                  <td><%=  Outlet.where("created_at > ?", 30.days.ago).count %></td>
+                </tr>
+                <tr>
+                  <th scope="row">Created last 90 Days:</th>
+                  <td><%=  Outlet.where("created_at > ?", 90.days.ago).count %></td>
+                </tr>
+                <tr>
+                  <th scope="row">Created last 180 Days:</th>
+                  <td><%=  Outlet.where("created_at > ?", 180.days.ago).count %></td>
+                </tr>
+                <tr>
+                  <th scope="row">Updated last 30 Days:</th>
+                  <td><%=  Outlet.where("updated_at > ?", 30.days.ago).count %></td>
+                </tr>
+                <tr>
+                  <th scope="row">Updated last 90 Days:</th>
+                  <td><%=  Outlet.where("updated_at > ?", 90.days.ago).count %></td>
+                </tr>
+                <tr>
+                  <th scope="row">Updated last 180 Days:</th>
+                  <td><%=  Outlet.where("updated_at > ?", 180.days.ago).count %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="grid-col-5 grid-offset-1">
+          <div class="activity-trackers">
+            <h2>Mobile Apps Activity</h2>
+            <table class="usa-table usa-table--borderless dashboard-table">
+              <caption>Mobile Apps Activity</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Activity</th>
+                  <th scope="col">Volume</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Created last 30 Days:</th>
+                  <td><%=  MobileApp.where("created_at > ?", 30.days.ago).count %></td>
+                </tr>
+                <tr>
+                  <th scope="row">Created last 90 Days:</th>
+                  <td><%=  MobileApp.where("created_at > ?", 90.days.ago).count %></td>
+                </tr>
+                <tr>
+                  <th scope="row">Created last 180 Days:</th>
+                  <td><%=  MobileApp.where("created_at > ?", 180.days.ago).count %></td>
+                </tr>
+                <tr>
+                  <th scope="row">Updated last 30 Days:</th>
+                  <td><%=  MobileApp.where("updated_at > ?", 30.days.ago).count %></td>
+                </tr>
+                <tr>
+                  <th scope="row">Updated last 90 Days:</th>
+                  <td><%=  MobileApp.where("updated_at > ?", 90.days.ago).count %></td>
+                </tr>
+                <tr>
+                  <th scope="row">Updated last 180 Days:</th>
+                  <td><%=  MobileApp.where("updated_at > ?", 180.days.ago).count %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,6 +1,75 @@
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
+
+
+class CustomFailure < Devise::FailureApp
+    def redirect_url
+       "https://#{ENV['REGISTRY_HOSTNAME']}/users/auth/login_dot_gov"
+    end
+
+    # You need to override respond to eliminate recall
+    def respond
+      if http_auth?
+        http_auth
+      else
+        redirect
+      end
+    end
+  end
+
+
 Devise.setup do |config|
+  # CAS SPECIFIC IMPLEMENTATION
+  # config.cas_base_url = "https://login.max.gov/cas/"
+
+  # you can override these if you need to, but cas_base_url is usually enough
+  # config.cas_login_url = "https://cas.myorganization.com/login"
+  # config.cas_logout_url = "https://cas.myorganization.com/logout"
+  # config.cas_validate_url = "https://cas.myorganization.com/serviceValidate"
+
+  # The CAS specification allows for the passing of a follow URL to be displayed when
+  # a user logs out on the CAS server. RubyCAS-Server also supports redirecting to a
+  # URL via the destination param. Set either of these urls and specify either nil,
+  # 'destination' or 'follow' as the logout_url_param. If the urls are blank but
+  # logout_url_param is set, a default will be detected for the service.
+  # config.cas_destination_url = 'https://cas.myorganization.com'
+  # config.cas_follow_url = 'https://cas.myorganization.com'
+  # config.cas_logout_url_param = nil
+
+  # You can specify the name of the destination argument with the following option.
+  # e.g. the following option will change it from 'destination' to 'url'
+  # config.cas_destination_logout_param_name = 'url'
+
+  # By default, devise_cas_authenticatable will create users.  If you would rather
+  # require user records to already exist locally before they can authenticate via
+  # CAS, uncomment the following line.
+  # config.cas_create_user = false
+  # config.cas_username_column = :user
+  
+  # You can enable Single Sign Out, which by default is disabled.
+  # config.cas_enable_single_sign_out = true
+
+  # If you want to use the Devise Timeoutable module with single sign out,
+  # uncommenting this will redirect timeouts to the logout url, so that the CAS can
+  # take care of signing out the other serviced applocations. Note that each
+  # application manages timeouts independently, so one application timing out will
+  # kill the session on all applications serviced by the CAS.
+  # config.warden do |manager|
+  #   manager.failure_app = DeviseCasAuthenticatable::SingleSignOut::WardenFailureApp
+  # end
+
+  # If you need to specify some extra configs for rubycas-client, you can do this via:
+  # config.cas_client_config_options = {
+  #     logger: Rails.logger
+  # }
+  config.omniauth :login_dot_gov, {
+    name: :login_dot_gov,
+    client_id: ENV['REGISTRY_IDP_CLIENT_ID'], # same value as registered in the Partner Dashboard
+    idp_base_url: ENV['REGISTRY_IDP'], # login.gov sandbox environment IdP
+    ial: 1,
+    private_key: OpenSSL::PKey::RSA.new(File.read('config/private.pem')),
+    redirect_uri: ENV['REGISTRY_LOGIN_REDIRECT'],
+  }
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
@@ -84,7 +153,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+   config.remember_for = 2.seconds
 
   # If true, a valid remember token can be re-used between multiple browsers.
   # config.remember_across_browsers = true
@@ -94,7 +163,7 @@ Devise.setup do |config|
 
   # If true, uses the password salt as remember token. This should be turned
   # to false if you are not using database authenticatable.
-  config.use_salt_as_remember_token = true
+
 
   # Options to be passed to the created cookie. For instance, you can set
   # :secure => true in order to force SSL only cookies.
@@ -191,7 +260,7 @@ Devise.setup do |config|
   # config.navigational_formats = [:"*/*", "*/*", :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = :get
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
@@ -202,8 +271,9 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  # config.warden do |manager|
-  #   manager.intercept_401 = false
-  #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
-  # end
+  config.warden do |manager|
+    manager.failure_app = CustomFailure
+  end
+  # line from initializer that overrides this on build
+  config.secret_key = ENV['REGISTRY_RAILS_COOKIE_TOKEN']
 end

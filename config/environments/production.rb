@@ -9,16 +9,16 @@ Ringsail::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_files = true
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
-  config.assets.digest = true
+  config.assets.digest = false
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
@@ -28,10 +28,10 @@ Ringsail::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :debug
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
@@ -43,7 +43,7 @@ Ringsail::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( embed.css gobierno.css howto.css usagov.css rails_admin/rails_admin.css rails_admin/rails_admin.js )
+  config.assets.precompile += %w( public.css public.js swagger.js swagger.css admin.css admin.js handlebars-2.0.0.js jquery.tokeninput.js)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
@@ -58,16 +58,20 @@ Ringsail::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => ENV['RINGSAIL_HOST'] }
+  config.action_mailer.default_url_options = { :host => ENV['REGISTRY_HOSTNAME'] }
 
   # Set up SendGrid for email
-  config.action_mailer.delivery_method = :smtp
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.perform_deliveries = true
+  ActionMailer::Base.raise_delivery_errors = true
+
   ActionMailer::Base.smtp_settings = {
-    :address => "smtp.sendgrid.net",   
-    :port => 25,   
-    :authentication => :plain, 
-    :user_name => ENV['SENDGRID_USER'],   
-    :domain    => ENV['SENDGRID_DOMAIN'],
-    :password  => ENV['SENDGRID_PASSWORD'],   
+    address:              ENV['REGISTRY_EMAIL_SERVER'],
+    port:                 ENV['REGISTRY_EMAIL_PORT'],
+    domain:               ENV['REGISTRY_EMAIL_DOMAIN'],
+    user_name:            ENV['REGISTRY_EMAIL_USER'],
+    password:             ENV['REGISTRY_EMAIL_PASS'],
+    authentication:       'login'
   }
+  config.eager_load = true
 end

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US" itemscope itemtype="http://schema.org/WebSite" prefix="og: http://ogp.me/ns#">
+<head profile="http://gmpg.org/xfn/11">
+  <%= render "layouts/html_head" %>
+</head>
+<body class="page home">
+  <div class="paper">
+    <%= render "layouts/dg_banner" %>
+    <%= render "layouts/admin_navigation" %>
+
+    <main aria-label="Content" role="main" id="main-content">
+      <% if notice || alert %>
+      <div class="grid-container grid-container-desktop">
+        <div class="grid-row">
+          <div class="grid-col-12">
+            <% if notice %>
+            <div class="usa-alert usa-alert--info" >
+              <div class="usa-alert__body">
+                <h3 class="usa-alert__heading">Notification</h3>
+                <p class="usa-alert__text"><%= notice %></p>
+              </div>
+            </div>
+            <% end %>
+            <% if alert && !alert.include?("session") && !alert.include?("before continuing") #try to ignore the annoying session message we can't seem to squash %>
+            <div class="usa-alert usa-alert--warning" >
+              <div class="usa-alert__body">
+                <h3 class="usa-alert__heading">Warning</h3>
+                <p class="usa-alert__text"><%= alert %></p>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <%= yield %>
+    </main>
+
+
+    <%= render "layouts/dg_footer" %>
+    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "admin" %>
+    <%= yield :additional_javascript %>
+
+
+
+  </div> <!-- End Paper -->
+  <% if !Rails.env.development? %>
+    <!-- We participate in the US government's analytics program. See the data at analytics.usa.gov. -->
+  <script async type="text/javascript" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=GSA&subagency=TTS" id="_fed_an_ua_tag"></script>
+  <% end %>
+</body>
+</html>

@@ -4,10 +4,15 @@ namespace :db do
     make_agencies
     make_official_tags
   end
+  desc "Reset data back to pre-populated files"
   task :forcerefresh => :environment do
     make_agencies(:force => true)
     make_official_tags(:force => true)
     make_accounts
+  end
+  desc "Reset agencies back to pre-populated file"
+  task :reset_agencies => :environment do
+    make_agencies(:force => true)
   end
 end
 
@@ -17,7 +22,7 @@ def make_agencies(options = {})
   CSV.foreach(agencies_file) do |row|
     attrs = {:name => row[0], :info_url => row[1], :shortname => row[2]}
 
-    agency = Agency.find_or_create_by_shortname(attrs)
+    agency = Agency.find_or_create_by(attrs)
     
     if (options[:force])
       agency.assign_attributes(attrs)

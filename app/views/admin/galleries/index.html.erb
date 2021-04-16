@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12 main">
+
+    <%= content_for :page_title do %>Galleries<% end %>
+    <h1 class="page-header">Galleries</h1>
+    <div class="row placeholders">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="paginated-results">
+          <%= link_to "Export Results to CSV", "javascript:export_csv()", class: "btn btn-default pull-right export" %>
+          <%= link_to "Add a Gallery", new_admin_gallery_path,  class: "btn btn-default pull-right" %>
+          <table class="table table-striped" id="data-tables">
+          <thead>
+          <tr>
+            <th>Agency</th>
+            <th>Name</th>
+            <th># Social Media Accounts</th>
+            <th># Mobile Products</th>
+            <th>Status</th>
+            <th>Updated At</th>
+          </tr>
+          </thead>
+
+          <tbody>
+
+          </tbody>
+          </table>
+          <%= link_to "Export Results to CSV", "javascript:export_csv()", class: "pull-right export" %>
+          <%= link_to "Add a Gallery", new_admin_gallery_path,  class: "btn btn-default pull-right" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= form_tag galleries_export_admin_galleries_path(format: :csv), method: :post, class: 'hidden', id: "csv_export" do %>
+  <%= hidden_field_tag :ids %>
+<% end %>
+
+<% content_for :additional_javascript do %>
+<style>
+.dataTables_filter{
+  display:none;
+}
+</style>
+  <script>
+    // var tags = [];
+    // $("#tag_tokens").tokenInput("/admin/official_tags/tokeninput.json", {
+    //   crossDomain: false,
+    //   prePopulate: tags,
+    //   preventDuplicates: true
+    // });
+    var data_tables = null;
+    $(document).ready(function() {
+       data_tables = $('#data-tables').dataTable({
+        "ajax" : {
+          "url":"/admin/galleries.json"
+        },
+        "scrollY":        "400px",
+        "columns": [
+          { "data" : "agencies[, ]"},
+          { "data" : "name"},
+          { "data" : "outlet_count"},
+          { "data" : "mobile_app_count"},
+          { "data" : "status"},
+          { "data" : "updated_at"}
+        ],
+        "columnDefs": [
+          {
+            "render": function(data,type,row){
+              return '<a href="/admin/galleries/'+row.DT_RowId+'">'+data+'</a>';
+            }, "targets":[1]
+          }
+        ],
+        "order": [[ 4, "desc" ]],
+        "initComplete": function(settings, json) {
+          $('.export').show();
+          $('.dataTables_filter').show();
+        },
+        'sDom':'<"row"<"col-sm-12"lf>><"row"<"col-sm-12"ip>>rt<"row"<"col-sm-12"ip>><"row"<"col-sm-12"lf>>'});
+    } );
+
+
+    all_ids = "";
+    function export_csv(){
+      rows = $("#data-tables").dataTable().$('tr', {"filter":"applied"});
+      all_ids = []
+      for(var i =0; i<rows.length; i++){
+        all_ids.push(rows[i].id);
+      }
+      $('#ids').val(all_ids.join(","));
+      $('#csv_export').submit();
+    }
+
+    function add_tag(name){
+      data_tables.fnFilter(name);
+    }
+
+  </script>
+<% end %>

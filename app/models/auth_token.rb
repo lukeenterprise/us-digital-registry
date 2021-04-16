@@ -2,29 +2,34 @@
 #
 # Table name: auth_tokens
 #
-#  id           :integer(4)      not null, primary key
+#  id           :integer          not null, primary key
 #  token        :string(255)
 #  email        :string(255)
 #  phone        :string(255)
-#  admin        :boolean(1)
-#  access_count :integer(4)
+#  admin        :boolean
+#  access_count :integer
 #  created_at   :datetime
 #  updated_at   :datetime
+#  duration     :string(255)      default("short")
 #
 
 class AuthToken < ActiveRecord::Base
   include ActiveModel::Validations
-  attr_accessible :email, :phone
+  #ttr_accessible :email, :phone
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, :presence   => true, 
                     :gov_email  => true
-  validates :phone, :presence   => true
+  validates :phone, :presence   => {:if => :short_duration?}
 
   before_save :make_token
   
   def still_valid?
-    created_at > 12.hours.ago && updated_at > 4.hours.ago
+    if long_duration?
+      created_at > 1.month.ago
+    else
+      created_at > 12.hours.ago && updated_at > 4.hours.ago
+    end
   end
   
   def is_recent?
@@ -41,12 +46,20 @@ class AuthToken < ActiveRecord::Base
   end
 
   def self.find_recent_by_email(email)
-    suspect = self.where(["email = ?", 'chris@measuredvoice.com']).last
-    if (suspect && suspect.is_recent?)
+    suspect = self.where(:email => email, :duration => 'short').last
+    if suspect && suspect.is_recent?
       suspect
     else
       nil
     end
+  end
+  
+  def short_duration?
+    duration == 'short'
+  end
+
+  def long_duration?
+    duration == 'long'
   end
 
   private

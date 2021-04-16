@@ -1,0 +1,70 @@
+<section class="usa-section" id="resources_featured">
+  <div class="grid-container grid-container-desktop">
+    <div class="grid-row">
+
+      <div class="grid-col-12">
+        <%= content_for :page_title do %>Tags<% end %>
+        <h1 class="page-header">Tags</h1>
+
+        <div class="row placeholders">
+
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tbldisplay">
+            <table id="data-tables" class=" table table-striped">
+              <thead>
+                <tr class="users_row">
+                  <th>Tag</th>
+                  <!-- <th>Type</th> -->
+                  <th># Social Accounts</th>
+                  <th># Mobile Apps</th>
+                  <th># Galleries</th>
+                  <th class = "lastlinks">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </dvi>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= form_tag admin_official_tags_path(format: :json), method: :post, class: 'hidden', id: "json_export" do %>
+  <%= hidden_field_tag :type, params[:type] %>
+<% end %>
+<% content_for :additional_javascript do %>
+  <script>
+    var data_tables = null;
+    $(document).ready(function() {
+       data_tables = $('#data-tables').dataTable({
+        "ajax" : {
+          "url":"/admin/official_tags.json",
+          "data": function(d){
+            d.type = $('#type').val();
+          }
+        },
+        "columns": [
+          { "data" : "tag_text"},
+          { "data" : "outlet_counts"},
+          { "data" : "mobile_counts"},
+          { "data" : "gallery_counts"},
+          { "data" : "DT_RowId"}
+        ],
+        "columnDefs": [
+          {
+            "render": function(data,type,row){
+              return data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            }, "targets":[0]
+          },
+          {
+            "render": function(data,type,row){
+              return '<a href="/admin/official_tags/'+data+'">Info</a> <a href="/admin/official_tags/'+data+'/edit">Edit</a>';
+            }, "targets":[4]
+          }
+        ],
+        'sDom':'<"grid-row"<"grid-col-5 grid-offset-1"f><"grid-col-5 grid-offset-1"l>><"grid-row"<"grid-col-10 grid-offset-1"pi>>rt<"grid-row"<"grid-col-10 grid-offset-1"ip>><"grid-row"<"grid-col-10 grid-offset-1">>'});
+    } );
+
+
+  </script>
+<% end %>

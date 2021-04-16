@@ -1,0 +1,57 @@
+<p>
+  <strong>Account Name:</strong>
+  <%= outlet.organization %>
+</p>
+
+<p>
+  <strong>Agencies:</strong>
+  <%= outlet.agencies.map(&:name).join(', ') %>
+</p>
+
+<p>
+  <strong>Account Platform:</strong>
+  <%= Admin::Service.find_by_shortname(outlet.service).longname %>
+</p>
+<p>
+  <strong>Account URL:</strong>
+  <%= link_to outlet.service_url, outlet.service_url, :target => "_blank" %>
+</p>
+
+<p>
+  <strong>Short Description:</strong>
+  <%= outlet.short_description %>
+</p>
+
+<p>
+  <strong>Long Description:</strong>
+  <%= outlet.long_description %>
+</p>
+
+<p>
+  <strong>Language:</strong>
+  <%= outlet.language %>
+</p>
+<p>
+  <strong>Tags:</strong>
+  <%= outlet.official_tags.map(&:tag_text).join(', ') %>
+</p>
+
+<p>
+  <strong>Updated at:</strong>
+  <%= outlet.updated_at.strftime("%B %e, %Y %H:%M") %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= outlet.status.humanize %>
+</p>
+<p>
+  <strong>Certified:</strong>
+  <%= outlet.validated_at.strftime("%B %e, %Y %H:%M") if outlet.validated_at %>
+</p>
+<% if outlet.published? %>
+<p>
+  <strong>API Link:</strong>
+    <%= link_to digital_registry_v1_social_medium_url(id:@outlet), digital_registry_v1_social_medium_url(id: @outlet) %>
+</p>
+<% end %>

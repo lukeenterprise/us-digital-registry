@@ -1,0 +1,79 @@
+<section class="usa-section" id="resources_featured">
+  <div class="grid-container grid-container-desktop">
+    <div class="grid-row">
+
+      <div class="grid-col-12">
+	    <%= content_for :page_title do %>Mobile Product Info<% end %>
+			<h1 class="page-header">Mobile Product Info</h1>
+			<div class="panel panel-default">
+			  	<div class="panel-body">
+			  		<div class="row">
+		                <div class="col-sm-6 col-xs-12">
+		                	<%= link_to "< Back to Mobile Products", admin_mobile_apps_path, {:class => "usa-button"} %>
+							<%= link_to " Edit", edit_admin_mobile_app_path(@mobile_app), {:class => "usa-button"} %>
+							<%#= link_to "History", history_admin_mobile_app_path(@mobile_app), {:class => "fa fa-history "} %>
+							<% if @mobile_app.published? %>
+							<%= link_to ' Certify', validate_admin_mobile_app_path(@mobile_app),
+								{:class => "usa-button"} %>
+							<% else %>
+							<%= link_to ' Publish', publish_admin_mobile_app_path(@mobile_app), {:class => "usa-button"} %>
+							<% end %>
+							<%= link_to ' Archive', archive_admin_mobile_app_path(@mobile_app), {:class=> "usa-button usa-button--secondary"} %>
+							<% if current_user.admin? %>
+							<%= link_to 'Delete (ADMIN)', admin_mobile_app_path(@mobile_app), { :method => :delete, :class => "usa-button usa-button--secondary"} %>
+							<% end %>  
+							 <p>Note: Archiving removes accounts from public visibility</p>
+		                </div>
+		            </div>
+						<%= render partial: "mobile_app_details", locals: { mobile_app: @mobile_app } %>
+					<% if @mobile_app.published? %>
+			  			<p>
+				  			<strong>API Link</strong>
+				  			<%= link_to digital_registry_v1_mobile_app_url(@mobile_app),
+				  				digital_registry_v1_mobile_app_url(@mobile_app) %>
+				  		</p>
+			  		<% else %>
+			  			<p>No information is currently published for this mobile product.</p>
+			  		<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+<section class="usa-section">
+  <div class="grid-container grid-container-desktop">
+    <div class="grid-row">
+
+      <div class="grid-col-4">
+	    <h3><i class="fa fa-user"></i> Contacts</h3>
+			<div class="panel panel-default">
+		  	<div class="panel-body">
+		  		<p>This list comprises everyone listed either as a contact on this mobile app.</p>
+		  		<ul class="list-group">
+		  			<% if @mobile_app.primary_contact %>
+		  			<li class="list-group-item">Primary Contact: <%= user_list_format( @mobile_app.primary_contact) %></li>
+		  			<% end %>
+		  			<% if @mobile_app.secondary_contact %>
+		  			<li class="list-group-item">Secondary Contact: <%= user_list_format(@mobile_app.secondary_contact) %></li>
+		  			<% end %>
+		  			<% @mobile_app.users.each do |user| %>
+		  					<li class="list-group-item"><%= user_list_format(user) %></li>
+		  			<% end %>
+		  		</ul>
+		  	</div>
+			</div>
+		</div>
+		<div class="grid-8">
+	    <h3><i class="fa fa-clock-o fa-fw"></i> Recent timeline for this Mobile Product</h3>
+			<div class="panel panel-default">
+		  	<div class="panel-body">
+		  		<ul class="timeline">
+		  			<%= render partial: "admin/shared/activities_feed", locals: {activities: @mobile_app.activities.order("created_at DESC").first(5)} %>
+		  		</ul>
+		  	</div>
+			</div>
+		</div>
+	</div>
+ </div>
+</section>

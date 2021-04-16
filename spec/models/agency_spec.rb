@@ -2,39 +2,36 @@
 #
 # Table name: agencies
 #
-#  id         :integer(4)      not null, primary key
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  shortname  :string(255)
-#  info_url   :string(255)
+#  id                         :integer          not null, primary key
+#  name                       :string(255)
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  shortname                  :string(255)
+#  info_url                   :string(255)
+#  mongo_id                   :string(255)
+#  parent_mongo_id            :string(255)
+#  parent_id                  :integer
+#  draft_outlet_count         :integer          default(0)
+#  draft_mobile_app_count     :integer          default(0)
+#  published_outlet_count     :integer          default(0)
+#  published_mobile_app_count :integer          default(0)
+#  draft_gallery_count        :integer          default(0)
+#  published_gallery_count    :integer          default(0)
+#  api_id                     :integer
+#  omb_name                   :string(255)
+#  stats_enabled              :boolean
 #
 
-require 'spec_helper'
+require 'rails_helper'
 
-describe Agency do
+RSpec.describe Agency, type: :model do
+	# it { should validate_presence_of(:name) }
+	it { should have_many(:mobile_app_agencies) }
+	it { should have_many(:mobile_apps) }
+	it { should have_many(:gallery_agencies) }
+	it { should have_many(:galleries) }
+	it { should have_many(:users) }
+	it { should belong_to(:parent)}
+	it { should have_many(:children)}
 
-  before(:each) do
-    @attr = { 
-      :name      => "Department of Examples", 
-      :shortname => "example",
-    }
-  end
-  
-  it "should create a new instance given valid attributes" do 
-    Agency.create!(@attr)
-  end
-
-  describe "creation" do
-  
-    it "should reject an agency without a shortname" do
-      noname = Agency.new(@attr.merge(:shortname => ""))
-      noname.should_not be_valid
-    end
-    
-    it "should reject an agency without a name" do
-      noname = Agency.new(@attr.merge(:name => ""))
-      noname.should_not be_valid
-    end
-  end
 end

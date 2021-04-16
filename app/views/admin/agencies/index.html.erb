@@ -1,0 +1,72 @@
+<section class="usa-section" id="resources_featured">
+  <div class="grid-container grid-container-desktop">
+    <div class="grid-row">
+
+      <div class="grid-col-12">
+        <%= content_for :page_title do %>Agencies<% end %>
+        <h1 class="page-header">Agencies</h1>
+        <p> <%= link_to "New Agency", new_admin_agency_path, {:class => "usa-button" } %></p>
+        <div class="row placeholders">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+     
+            <table id="data-tables" class="table table-striped">
+          		<thead>
+                <tr class="agency_row">
+                  <th>Agency Name</th>
+                  <th>Parent Agency</th>
+                  <th># of Social Accounts (published)</th>
+                  <th># of Apps (published)</th>
+                  <th class="lastlinks">Actions</th>
+            		</tr>
+              </thead>
+
+              <tbody>
+            		
+              </tbody>
+        	  </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% content_for :additional_javascript do %>
+  <script>
+    var data_tables = null;
+    $(document).ready(function() {
+       data_tables = $('#data-tables').dataTable({
+        "ajax" : {
+          "url":"/admin/agencies.json"
+        },
+        "columns": [
+          { "data" : "name"},
+          { "data" : "parent_name"},
+          { "data" : "outlet_counts"},
+          { "data" : "mobile_counts"},
+          { "data" : "DT_RowId"}
+        ],
+        "columnDefs": [
+          {
+            "render": function(data,type,row){
+              return data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            }, "targets":[0]
+          },
+          {
+            "render": function(data,type,row){
+              return data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            }, "targets":[1]
+          },
+          {
+            "render": function(data,type,row){
+              return '<a href="/admin/agencies/'+data+'">info</a>';
+            }, "targets":[4]
+          }
+        ],
+        'sDom':'<"grid-row"<"grid-col-5 grid-offset-1"f><"grid-col-5 grid-offset-1"l>><"grid-row"<"grid-col-10 grid-offset-1"pi>>rt<"grid-row"<"grid-col-10 grid-offset-1"ip>><"grid-row"<"grid-col-10 grid-offset-1">>'
+      } );
+    });
+
+
+  </script>
+<% end %>

@@ -2,4 +2,48 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  Outlet: "Social Media Account"
+  MobileApp: "Mobile Product"
+  Gallery: "Gallery"
+  activerecord:
+    models:
+      outlet: "Social Media Account"
+      mobile_app: "Mobile Product"
+      user: "Contact"
+    attributes:
+      outlet:
+        organization: "Account Name"
+        users:
+          one: "Contacts"
+          other: "Contacts"
+        agencies:
+          one: "Sponsoring Agencies"
+          other: "Sponsoring Agencies"
+      mobile_app:
+        users:
+          one: "Contacts"
+          other: "Contacts"
+        agencies:
+          one: "Sponsoring Agencies"
+          other: "Sponsoring Agencies"
+      gallery:
+        users:
+          one: "Contacts"
+          other: "Contacts"
+        agencies:
+          one: "Sponsoring Agencies"
+          other: "Sponsoring Agencies"
+  outlet:
+    create: "created"
+    update: "updated"
+    destroy: "deleted"
+  mobile_app:
+    create: "created"
+    update: "updated"
+    destroy: "deleted"
+  views:
+    pagination:
+      last: ">>"
+      next: ">"
+      first: "<<"
+      previous: "<"

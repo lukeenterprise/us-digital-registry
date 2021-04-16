@@ -1,0 +1,56 @@
+<section class="usa-section" id="featured_data" >
+	<div class="paper">
+	    <div class="grid-container grid-container-desktop">
+	      	<div class="grid-row">
+		      	<div class="grid-col-12">
+				  	<%= content_for :page_title do %>Social Media Account Info<% end %>
+				    <h1 class="page-header">Social Media Account Info</h1>
+		            <div class="grid-row">
+		                <div class="grid-col-12">
+		                   <%= link_to '< Back to Social Media list', admin_outlets_path, {:class => "usa-button usa-button--outline"} %>
+		                    <%= link_to ' Edit', edit_admin_outlet_path(@outlet), {:class => "usa-button usa-button--outline"} %>
+		                    <%= link_to ' Publish', publish_admin_outlet_path(@outlet), {:class => "usa-button"} %>
+		                    <%= link_to ' Archive', archive_admin_outlet_path(@outlet), {:class=> "usa-button usa-button--secondary"} %>
+		                    <% if current_user.admin? %>
+							<%= link_to 'Delete (ADMIN)', admin_outlet_path(@outlet), { :method => :delete, :class => "usa-button usa-button--secondary"} %>
+							<% end %>    
+		                    <p>Note: Archiving removes accounts from public visibility</p>
+		                    <%= render partial: "outlet_details", locals: {outlet: @outlet} %>
+		                    
+		                </div>
+		            </div>
+			    </div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="usa-section" id="more_information" >
+	<div class="paper">
+	    <div class="grid-container grid-container-desktop">
+			<div class="grid-row">
+				<div class="grid-col-6">
+			    <h2>Contacts</h2>
+		  		<p>Everyone listed either as a contact on this account.</p>
+		  		<ul class="contact-list">
+	                <% if @outlet.primary_contact %>
+	                	<li class="contact-list-item">Primary Contact: <%= user_list_format( @outlet.primary_contact) %></li>
+	                <% end %>
+	                <% if @outlet.secondary_contact %>
+	                	<li class="contact-list-item">Secondary Contact: <%= user_list_format(@outlet.secondary_contact) %></li>
+	                <% end %>
+		  			<% @outlet.users.each do |contact| %>
+		  				<li class="contact-list-item"><%= user_list_format(contact) %></li>
+		  			<% end %>
+		  		</ul>
+				</div>
+				<div class="grid-col-6">
+				    <h2>Recent Changes</h2>
+		  			<p>When changes have been made to this account.</p>
+			  		<ul class="timeline">
+			  			<%= render partial: "admin/shared/activities_feed", locals: {activities: @outlet.activities.order("created_at DESC").first(5)} %>
+			  		</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
