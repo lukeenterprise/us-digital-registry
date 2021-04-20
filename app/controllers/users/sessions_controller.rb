@@ -1,4 +1,4 @@
-   # Assists in RP-initiated logout: https://developers.login.gov/oidc/#logout
+# Assists in RP-initiated logout: https://developers.login.gov/oidc/#logout
       # @example RP-initiated logout in Rails controller
       module Users
         class SessionsController < Devise::SessionsController
@@ -13,12 +13,14 @@
             sign_out(current_user)
             redirect_to(logout_request.redirect_uri) and return
           end
-      
+
           # Avoid making multiple HTTP requests to determine logout URL by memoizing utility class
           def self.logout_utility
             @logout_utility ||=
               OmniAuth::LoginDotGov::LogoutUtility.new(idp_base_url: ENV['REGISTRY_IDP'])
           end
+
         end
       end
       
+
