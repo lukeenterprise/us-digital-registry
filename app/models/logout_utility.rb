@@ -38,7 +38,7 @@ module OmniAuth
         logout_params = { state: state, id_token_hint: id_token, post_logout_redirect_uri: post_logout_redirect_uri }
 
         Request.new(
-          "https://idp.int.identitysandbox.gov/openid_connect/logout?#{logout_params.to_query}",
+          ENV['REGISTRY_IDP']+"openid_connect/logout?#{logout_params.to_query}",
           state
         )
        end
