@@ -26,11 +26,6 @@
     </div>
     <div class="field">
       <%= f.label :service_url, "Account URL<span class=\"red\">*</span>".html_safe, {class: 'usa-label'} %> Format Help - <span id="format-help">pick an account type for format help</span></br>
-      <% if @outlet.try(:service_url).try(:archived?) %>
-        <%= f.select :service, options_for_select(Admin::service_url.every.map{|item| [item.longname.humanize,item.shortname,{"data-format-helper" =>item.service_url_example}]}, selected: @outlet.service),{include_blank: "Select"}, {:class => "usa-input"} %>
-      <% else %>
-        <%= f.select :service, options_for_select(Admin::service_url.unarchived.map{|item| [item.longname,item.shortname,{"data-format-helper" =>item.service_url_example}]}, selected: @outlet.service),{include_blank: "Select"}, {:class => "usa-input"} %>
-      <% end %>
       <%= f.text_field :service_url, :class => "usa-input" %>
       <%= f.hidden_field :account %>
     </div>
