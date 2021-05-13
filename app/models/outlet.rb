@@ -140,7 +140,7 @@ class Outlet < ActiveRecord::Base
   validates :service_url,
     :presence   => true,
     :format     => { :with => URI::regexp(%w(http https)) }
-  validates_uniqueness_of :service_url , case_sensitive: false,  :message => "Url has already been used" 
+  validates_uniqueness_of :service_url , case_sensitive: false,  :message => "has already been used" 
 
   validates :language, :presence => true
   validates :agencies, :length => { :minimum => 1, :message => "have at least one sponsoring agency" }
