@@ -46,7 +46,39 @@ class Admin::SocialMediaController < Admin::AdminController
     end
     respond_to do |format|
       format.csv { render plain: @outlets.to_csv }
+      end
+  end
+
+  def social_media_import
+    @import = ""
+  end
+
+  def bulk_social_media_upload
+    csv_array = CSV.read(params[:import].tempfile, headers: true, header_converters: :symbol).map(&:to_h)
+    if csv_array.length > 500
+      redirect_to social_media_import_admin_outlets_path, notice: "File is too large, maximum number of rows is 500" and return
     end
+    
+    invalid_rows = []
+    csv_array.each do |obj|
+      new_obj = transform_csv_keys(obj)
+      outlet = Outlet.new(new_obj)
+      if outlet.save
+        outlet.published!
+        ELASTIC_SEARCH_CLIENT.index  index: 'outlets', type: 'outlet', id: outlet.id, body: outlet.as_indexed_json
+      else
+        invalid_rows << outlet
+      end
+    end
+
+    notice = "#{csv_array.length() - invalid_rows.length()} Social Media Accounts were successfully created and published.\n\n"
+    if invalid_rows.length > 0
+      notice += "The following data were <b>not</b> uploaded:\n"
+      invalid_rows.each do |row|
+        notice += "- <b>Account:</b> #{row.service}, <b>URL:</b> #{row.service_url}\n"
+      end
+    end
+    redirect_to social_media_import_admin_outlets_path, notice: notice and return
   end
 
   def datatables
@@ -192,7 +224,8 @@ class Admin::SocialMediaController < Admin::AdminController
     def outlet_params
       params.require(:outlet).permit(:organization, :service_url, :location, :location_id, :status,
         :account, :service, :language, :agency_tokens, :user_tokens, :tag_tokens,
-        :short_description, :long_description, :primary_contact_id, :secondary_contact_id, :primary_agency_id, :secondary_agency_id, :notes)
+        :short_description, :long_description, :primary_contact_id, :secondary_contact_id, 
+        :primary_agency_id, :secondary_agency_id, :notes, :import)
     end
 
     def current_page
@@ -230,4 +263,38 @@ class Admin::SocialMediaController < Admin::AdminController
       !tag.nil? ? tag.tag_text : nil
     end
 
+    def transform_csv_keys(obj)
+      mappings = { :account_platform => 'service', 
+                   :account_url => 'service_url',
+                   :account_name => 'organization',
+                   :agencies => 'agency_tokens',
+                   :contacts => 'user_tokens', }
+      obj[:agencies] = get_agency_tokens(obj[:agencies])
+      obj[:contacts] = get_user_tokens(obj[:contacts])
+      obj.dup.transform_keys{ |k| obj[ mappings[k] ] = obj.delete(k) if mappings[k]}
+      return obj
+    end
+
+    def get_agency_tokens(agencies)
+      agencies_arry = []
+      agencies.split("|").each do |agency|
+        agency = Agency.where("name LIKE ? OR shortname LIKE ?", "%#{agency}%", "%#{agency}%").select([:id,:name])
+        if agency
+          agencies_arry << agency.ids.first
+        end
+      end
+      return agencies_arry.join(",")
+    end
+
+    def get_user_tokens(users)
+      users_arry = []
+      users.split("|").each do |user|
+        user = User.where("email LIKE ?", "%#{user}%").select([:id, :name])
+        if user
+          users_arry << user.ids.first
+        end
+      end
+      return users_arry.join(",")
+    end
+  
 end

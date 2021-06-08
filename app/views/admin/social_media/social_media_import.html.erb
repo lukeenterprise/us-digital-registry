@@ -1,0 +1,54 @@
+<section class="usa-section" id="hotspot_featured" >
+	<div class="paper">
+	    <div class="grid-container grid-container-desktop">
+	      	<div class="grid-row">
+		      	<div class="grid-col-12">
+                    <h1 class="page-header">Bulk Social Media Account Upload</h1>
+                    <ul class="usa-process-list">
+                        <li class="usa-process-list__item">
+                            <h4 class="usa-process-list__heading">Create CSV File</h4>
+                            <p class="margin-top-05">Your csv file must contain the following headers exactly as they are shown with their corresponding data: <b>account_platform, account_url, account_name, short_description, language, agencies, contacts</b></p>
+                        </li>
+                        <br>
+                        <li class="usa-process-list__item">
+                            <h4 class="usa-process-list__heading">Agency and Contact Format</h4>
+                            <p class="margin-top-05">If you have more than one agency or contact that needs to be associated with a single account, delineate each item with a "|" between them</p>
+                            <p class="margin-top-05"><b>Example:</b> "contact1@contact.com|contact2@contact.com" or <br> "Department of First|Department of Second"</p>
+                        </li>
+                    </ul>
+                    <p><%= link_to 'Download Sample CSV', "/docs/sample.csv", download: "sample.csv" %></p>
+                    <div style="margin-top:1rem;">
+                        <%= form_for @import, :url => {:action => "bulk_social_media_upload", :controller => "social_media"} do |f| %>
+                        <label id="input-label-id" class="usa-button usa-button--outline">
+                            Choose file
+                            <span style="display:none">
+                                <%= f.file_field :import, required: true, id: "customFile"%>
+                            </span>
+                        </label>
+                        <p><%= f.submit "Submit", :class => "usa-button" %><p>
+                        <% end %>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</section>
+<% content_for :additional_javascript do %>
+  <script>
+    $(document).ready(
+        function(){
+            $('input:submit').attr('disabled',true);
+            $('input:file').change(
+                function(){
+                    $(document).find("#input-label-id").contents().get(0).nodeValue = "Uploaded"
+                    if ($(this).val()){
+                        $('input:submit').removeAttr('disabled'); 
+                    }
+                    else {
+                        $('input:submit').attr('disabled',true);
+                    }
+                });
+            }  
+        );
+  </script>
+<% end %>

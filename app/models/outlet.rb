@@ -181,16 +181,6 @@ class Outlet < ActiveRecord::Base
     # end
   end
 
-  # def service_info
-  #   if self.service_url && self.service
-  #     if self.service_info.account
-  #       self.account = self.service_info.account
-  #     else
-  #       self.errors.push(:service_url, "should be able to be parsed from URL, check the format you provided. If you believe this to be in error, contact an administrator")
-  #     end
-  #   end
-  # end
-
   def self.to_csv(options = {})
     csv_file = CSV.generate(options) do |csv|
       columns_for_csv = ["id","created_at","updated_at","service_url","organization","account","language","service","status","short_description","long_description"]
@@ -205,7 +195,7 @@ class Outlet < ActiveRecord::Base
 
   def self.export_csv(options={})
     CSV.generate(options) do |csv|
-      csv << ["agencies" ,"account_type","account name","account url", "tags", "updated"]
+      csv << ["agencies","account_type","account name","account url","tags","updated"]
 
       self.all.includes(:agencies,:users,:official_tags).each do |outlet|
         csv << [outlet.agencies.map(&:name).join("|") ,outlet.service, outlet.organization, outlet.service_url, outlet.official_tags.map(&:tag_text).join("|"), outlet.updated_at]
