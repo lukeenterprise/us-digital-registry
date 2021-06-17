@@ -5,7 +5,7 @@
     <% if @mobile_app.errors.any? %>
       <div class="usa-alert usa-alert--error" role="alert">
         <div class="usa-alert__body">
-          <h3 class="usa-alert__heading">Error: <%= pluralize(@mobile_app.errors.count, "error") %> stopped this mobile product from being saved</h3>
+          <h3 class="usa-alert__heading">Error: <%= pluralize(@mobile_app.errors.count, "error") %> prohibited this mobile app from being saved</h3>
           <ul>
            <% @mobile_app.errors.messages.values.each do |msg| %>
               <%msg.each do  |m| %>
@@ -20,7 +20,7 @@
       <% if version.errors.any? %>
         <div class="usa-alert usa-alert--error" role="alert">
           <div class="usa-alert__body">
-            <h3 class="usa-alert__heading">Error: <%= pluralize(version.errors.count, "error") %> Mobile app version <%= index + 1 %> from being saved</h3>
+            <h3 class="usa-alert__heading">Error: <%= pluralize(version.errors.count, "error") %> obile app version <%= index + 1 %> from being saved</h3>
             <ul>
             <% version.errors.full_messages.each do |message| %>
             <li class="usa-alert__text"><%= message %></li>
