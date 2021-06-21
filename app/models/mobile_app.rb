@@ -120,8 +120,8 @@ class MobileApp < ActiveRecord::Base
   validates_presence_of :short_description, message: 'Short Description can’t be blank'
   #validates :long_description, :presence => true
 
-  validates :agencies, :length => { :minimum => 1, :message => "Sponsoring Agencies*-select at least one sponsoring agency. Type to search Agencies list." }
-  validates :users, :length => { :minimum => 1, :message => "Contacts*-add at least one contact. Type to search Contacts list." }
+  validates :agencies, :length => { :minimum => 1, :message => "Sponsoring Agencies*- Select at least one sponsoring agency. Type to search Agencies list." }
+  validates :users, :length => { :minimum => 1, :message => "Contacts*- Add at least one contact. Type to search Contacts list." }
   validates :mobile_app_versions, :length => { :minimum => 1, :message => "Mobile app versions have at least one version of the product listed." }
 
 
