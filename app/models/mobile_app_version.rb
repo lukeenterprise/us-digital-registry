@@ -22,9 +22,9 @@ class MobileAppVersion < ActiveRecord::Base
   belongs_to :mobile_app
 
   #validates :store_url, presence: true
-  validates_presence_of :name, message: 'Store URL can’t be blank' 
+  validates_presence_of :store_url, message: 'Store URL can’t be blank' 
   #validates :platform, presence: true
-  validates_presence_of :name, message: 'Platform can’t be blank' 
+  validates_presence_of :platform, message: 'Platform can’t be blank' 
   #validates :device, presence: true
-  validates_presence_of :name, message: 'Product Type can’t be blank' 
+  validates_presence_of :device, message: 'Product Type can’t be blank' 
 end
