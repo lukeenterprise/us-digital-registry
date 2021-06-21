@@ -117,12 +117,12 @@ class MobileApp < ActiveRecord::Base
   #validates :name, :presence => true
   validates_presence_of :name, message: 'Name can’t be blank' 
   #validates :short_description, :presence => true
-  validates_presence_of :short_description, message: 'Short description can’t be blank'
+  validates_presence_of :short_description, message: 'Short Description can’t be blank'
   #validates :long_description, :presence => true
 
-  validates :agencies, :length => { :minimum => 1, :message => "have at least one sponsoring agency" }
-  validates :users, :length => { :minimum => 1, :message => "have at least one contact" }
-  validates :mobile_app_versions, :length => { :minimum => 1, :message => "have at least one version of the product must be given." }
+  validates :agencies, :length => { :minimum => 1, :message => "Sponsoring Agencies*-select at least one sponsoring agency. Type to search Agencies list." }
+  validates :users, :length => { :minimum => 1, :message => "Contacts*-add at least one contact. Type to search Contacts list." }
+  validates :mobile_app_versions, :length => { :minimum => 1, :message => "Mobile app versions have at least one version of the product listed." }
 
 
 
