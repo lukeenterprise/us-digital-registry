@@ -22,9 +22,11 @@
           <div class="usa-alert__body">
             <h3 class="usa-alert__heading">Error: <%= pluralize(version.errors.count, "error") %> Mobile app version <%= index + 1 %> from being saved</h3>
             <ul>
-            <% version.errors.full_messages.each do |message| %>
-            <li class="usa-alert__text"><%= message %></li>
-            <% end %>
+            <% version.errors.messages.values.each do |message| %>
+             <%msg.each do  |m| %>
+               <li class="usa-alert__text"><%= m %></li>
+              <%end %>
+              <% end %>
             </ul>
           </div>
         </div>
