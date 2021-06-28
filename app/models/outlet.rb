@@ -135,12 +135,11 @@ class Outlet < ActiveRecord::Base
 
   # Published outlets should not.
   #validates :organization, :presence => true
-  validates_presence_of :organization, message: 'organization can’t be blank'
+  validates_presence_of :organization, message: 'Account Name can’t be blank'
   #validates :service,    :presence   => true
-    validates_presence_of :service, message: 'Account Platform can’t be blank'
-  validates :service_url,
-    :presence   => true,
-    :format     => { :with => URI::regexp(%w(http https)) }
+  validates_presence_of :service, message: 'Account Platform can’t be blank'
+  validates_presence_of :service_url, :format     => { :with => URI::regexp(%w(http https)) }, message: 'Account URL can’t be blank'
+  #validates :service_url,    :presence   => true,    :format     => { :with => URI::regexp(%w(http https)) }
   validates_uniqueness_of :service_url , case_sensitive: false,  :message => "Account URL has already been used" 
 
   validates :language, :presence => true
