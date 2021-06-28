@@ -135,10 +135,12 @@ class Outlet < ActiveRecord::Base
 
   # Published outlets should not.
   #validates :organization, :presence => true
-  validates_presence_of :organization, message: 'Account Name can’t be blank'
-  #validates :service,    :presence   => true
   validates_presence_of :service, message: 'Account Platform can’t be blank'
-  validates_presence_of :service_url, :format     => { :with => URI::regexp(%w(http https)) }, message: 'Account URL can’t be blank'
+  validates_presence_of :service_url, message: 'Account URL can’t be blank' 
+  validate_format_of :service_url, :with => URI::regexp(%w(http https)), message: 'Account URL is invalid'
+  validates_presence_of :organization, message: 'Account Name can’t be blank'
+  validates_presence_of :short_description, message: 'Short Description can’t be blank'
+  #validates :service,    :presence   => true 
   #validates :service_url,    :presence   => true,    :format     => { :with => URI::regexp(%w(http https)) }
   validates_uniqueness_of :service_url , case_sensitive: false,  :message => "Account URL has already been used" 
 
@@ -146,7 +148,8 @@ class Outlet < ActiveRecord::Base
   validates :agencies, :length => { :minimum => 1, :message => "Agencies have at least one sponsoring agency" }
   validates :users, :length => { :minimum => 1, :message => "Contacts have at least one contact" }
 
-  validates :short_description, :presence => true
+  #validates :short_description, :presence => true
+  
   paginates_per 100
 
   before_save :social_media_update
