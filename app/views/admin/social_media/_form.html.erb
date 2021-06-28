@@ -5,7 +5,7 @@
     <% if @outlet.errors.any? %>
       <div class="usa-alert usa-alert--error" role="alert">
         <div class="usa-alert__body">
-          <h3 class="usa-alert__heading">Error: <%= pluralize(@outlet.errors.count, "error") %> prohibited this social media account from being saved</h3>
+          <h3 class="usa-alert__heading">Error: <%= pluralize(@outlet.errors.count, "error") %> stopped this social media account from being saved</h3>
           <ul>
           <% @outlet.errors.messages.values.each do |msg| %>
               <%msg.each do  |m| %>
