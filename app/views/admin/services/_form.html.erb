@@ -18,7 +18,7 @@
     <%= f.text_field :service_url_example, :class => "usa-input" %>
   </div>
   <div class="field">
-    <%= f.label :handles_regex_eval, 'Service host match regexp: (Should look like /facebook.com$/ for facebook)', {class: 'usa-label'} %>
+    <%= f.label :handles_regex_eval, 'Platform host match regexp: (Should look like /facebook.com$/ for facebook)', {class: 'usa-label'} %>
     <%= f.text_field :handles_regex_eval, :class => "usa-input" %>
   </div>
   <div class="field">
@@ -75,7 +75,7 @@
     <%= f.text_field :service_url_canonical_eval, :class => "form-control formwidth" %>
   </div> -->
   <div class="actions">
-    <%= f.submit :class => "usa-button" %>
+    <%= f.submit "Create Platform" :class => "usa-button" %>
   </div>
 </fieldset>
 <% end %>
