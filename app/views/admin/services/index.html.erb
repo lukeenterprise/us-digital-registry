@@ -3,7 +3,7 @@
     <div class="grid-row">
 
       <div class="grid-col-12">
-        <%= content_for :page_title do %>Services<% end %>
+        <%= content_for :page_title do %>Plat<% eformnd %>
         <h1 class="page-header">Social Media Platforms</h1>
         <%= link_to 'Request a Platform', new_admin_service_path, class: "usa-button" %>
         <br/>
@@ -62,7 +62,7 @@
           },
           {
             "render": function(data,type,row){
-              return '<a href="/admin/services/'+data+'">Info</a>';
+              return '<a href="/admin/platform/'+data+'">Info</a>';
             }, "targets":[3]
           }
         ],
