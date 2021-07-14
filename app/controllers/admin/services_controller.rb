@@ -54,7 +54,7 @@ class Admin::ServicesController < Admin::AdminController
 
     respond_to do |format|
       if @admin_service.save
-        format.html { redirect_to @admin_service, notice: 'Service was successfully created.' }
+        format.html { redirect_to @admin_service, notice: 'Platform was successfully created.' }
         format.json { render :show, status: :created, location: @admin_service }
       else
         format.html { render :new }
@@ -68,7 +68,7 @@ class Admin::ServicesController < Admin::AdminController
   def update
     respond_to do |format|
       if @admin_service.update(admin_service_regex_params)
-        format.html { redirect_to @admin_service, notice: 'Service was successfully updated.' }
+        format.html { redirect_to @admin_service, notice: 'Platform was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin_service }
       else
         format.html { render :edit }
@@ -80,7 +80,7 @@ class Admin::ServicesController < Admin::AdminController
   def archive
     @admin_service.update_attribute(:archived, true)
     respond_to do |format|
-      format.html { redirect_to admin_service_url(@admin_service), notice: 'Service was successfully archived.' }
+      format.html { redirect_to admin_service_url(@admin_service), notice: 'Platform was successfully archived.' }
       format.json { head :no_content }
     end
   end
@@ -88,7 +88,7 @@ class Admin::ServicesController < Admin::AdminController
   def restore
     @admin_service.update_attribute(:archived, false)
     respond_to do |format|
-      format.html { redirect_to admin_service_url(@admin_service), notice: 'Service was successfully restored.' }
+      format.html { redirect_to admin_service_url(@admin_service), notice: 'Platform was successfully restored.' }
       format.json { head :no_content }
     end
   end
