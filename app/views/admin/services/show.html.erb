@@ -3,16 +3,16 @@
     <div class="grid-row">
 
       <div class="grid-col-12">
-      <%= content_for :page_title do %>Service Info<% end %>
-  		<h1 class="page-header">Service Info</h1>
+      <%= content_for :page_title do %>Platform Info<% end %>
+  		<h1 class="page-header">Platform Info</h1>
   		<div class = "panel panel-default">
   			<div class = "panel-body">
           <p>
-            <strong>Service url example:</strong>
+            <strong>Platform url example:</strong>
             <%= @admin_service.service_url_example %>
           </p>
           <p>
-            <strong>Service host match regexp:</strong>
+            <strong>Platform host match regexp:</strong>
             <%= @admin_service.handles_regex_eval %>
           </p>
 
@@ -89,7 +89,7 @@
 
       <div class="grid-col-12">
   		<div class="buttonRow">
-  			<%= link_to 'Back to Services', admin_services_path,{:class => "usa-button"} %>
+  			<%= link_to 'Back to Platform', admin_services_path,{:class => "usa-button"} %>
   			<%= link_to 'Edit', edit_admin_service_path(@admin_service),{:class => "usa-button"} %>
         <% if @admin_service.archived? %>
           <%= link_to ' Unarchive', restore_admin_service_path(@admin_service),{:class => "usa-button"} %>

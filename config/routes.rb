@@ -285,6 +285,7 @@ Ringsail::Application.routes.draw do
         get "account_for_url"
       end
     end
+
     resources :mobile_apps,
       concerns: [:activity_and_history, :publish_and_archive] do
       collection do
@@ -317,7 +318,7 @@ Ringsail::Application.routes.draw do
       end
     end
     resources :email_messages
-    resources :services, except: [:destroy] do
+    resources :services, :path => "platform", except: [:destroy] do
       member do
         get 'archive'
         get 'restore'

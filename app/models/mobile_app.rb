@@ -114,13 +114,15 @@ class MobileApp < ActiveRecord::Base
 
   accepts_nested_attributes_for :mobile_app_versions, reject_if: :all_blank, allow_destroy: true
 
-  validates :name, :presence => true
-  validates :short_description, :presence => true
+  #validates :name, :presence => true
+  validates_presence_of :name, message: 'Name can’t be blank' 
+  #validates :short_description, :presence => true
+  validates_presence_of :short_description, message: 'Short Description can’t be blank'
   #validates :long_description, :presence => true
 
-  validates :agencies, :length => { :minimum => 1, :message => "have at least one sponsoring agency" }
-  validates :users, :length => { :minimum => 1, :message => "have at least one contact" }
-  validates :mobile_app_versions, :length => { :minimum => 1, :message => "have at least one version of the product must be given." }
+  validates :agencies, :length => { :minimum => 1, :message => "Sponsoring Agencies*- Select at least one sponsoring agency. Type to search Agencies list." }
+  validates :users, :length => { :minimum => 1, :message => "Contacts*- Add at least one contact. Type to search Contacts list." }
+  validates :mobile_app_versions, :length => { :minimum => 1, :message => "Mobile app versions have at least one version of the product listed." }
 
 
 

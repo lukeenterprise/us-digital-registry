@@ -3,9 +3,9 @@
     <div class="grid-row">
 
       <div class="grid-col-12">
-        <%= content_for :page_title do %>Services<% end %>
-        <h1 class="page-header">Services</h1>
-        <%= link_to 'New Service', new_admin_service_path, class: "usa-button" %>
+        <%= content_for :page_title do %>Platform<% end %>
+        <h1 class="page-header">Social Media Platforms</h1>
+        <%= link_to 'Request a Platform', new_admin_service_path, class: "usa-button" %>
         <br/>
         <br/>
         <div class="row placeholders">
@@ -14,8 +14,8 @@
             <table id="data-tables" class="table table-striped">
           		<thead>
                 <tr class = "service_row">
-                  <th>Service Name</th>
-                  <th>Service URL Example</th>
+                  <th>Platform Name</th>
+                  <th>Platform URL Example</th>
                   <th>Archived</th>
                   <th class = "lastlinks">Actions</th>
             		</tr>
@@ -41,7 +41,7 @@
     $(document).ready(function() {
        data_tables = $('#data-tables').dataTable({
         "ajax" : {
-          "url":"/admin/services.json"
+          "url":"/admin/platform.json"
         },
         "columns": [
           { "data" : "name"},
@@ -62,7 +62,7 @@
           },
           {
             "render": function(data,type,row){
-              return '<a href="/admin/services/'+data+'">Info</a>';
+              return '<a href="/admin/platform/'+data+'">Info</a>';
             }, "targets":[3]
           }
         ],
