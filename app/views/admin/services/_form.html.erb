@@ -5,30 +5,33 @@
       <div class="usa-alert__body">
         <h3 class="usa-alert__heading">Error: <%= pluralize(@admin_service.errors.count, "error") %> prohibited this service from being saved</h3>
         <ul>
-        <% @admin_service.errors.full_messages.each do |message| %>
-        <li class="usa-alert__text"><%= message %></li>
-        <% end %>
-        </ul>
+         <% @admin_service.errors.messages.values.each do |msg| %>
+              <%msg.each do  |m| %>
+               <li class="usa-alert__text"><%= m %></li>
+              <%end %>
+           <% end %>
+          </ul>
       </div>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :service_url_example, 'URL Example: (May be http://facebook.com/username for facebook)', {class: 'usa-label'} %>
+    <%= f.label :service_url_example,"URL Example: (May be http://facebook.com/username for facebook)<span class=\"red\">*</span>".html_safe, {class: 'usa-label'} %>
     <%= f.text_field :service_url_example, :class => "usa-input" %>
   </div>
   <div class="field">
     <%= f.label :handles_regex_eval, 'Platform host match regexp: (Should look like /facebook.com$/ for facebook)', {class: 'usa-label'} %>
     <%= f.text_field :handles_regex_eval, :class => "usa-input" %>
   </div>
+   <div class="field">
+    <%= f.label :longname, "Long name: (Display name)<span class=\"red\">*</span>".html_safe, {class: 'usa-label'} %>
+    <%= f.text_field :longname, :class => "usa-input" %>
+  </div>
   <div class="field">
     <%= f.label :shortname, 'Short name: (No spaces, no special characters)', {class: 'usa-label'} %>
     <%= f.text_field :shortname, :class => "usa-input" %>
   </div>
-  <div class="field">
-    <%= f.label :longname, 'Long name: (Display name)', {class: 'usa-label'} %>
-    <%= f.text_field :longname, :class => "usa-input" %>
-  </div>
+ 
   <!-- <div class="field">
     <%= f.label :display_name_eval, 'Display name template' %><br>
     <%= f.text_field :display_name_eval, :class => "form-control formwidth" %>

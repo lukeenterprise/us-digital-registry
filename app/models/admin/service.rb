@@ -53,4 +53,4 @@ end
 #validates :service_url_example, :presence => true
 validates_presence_of :service_url_example, message: 'URL can’t be blank' 
 #validates :handles_regex_eval, :presence => true
-validates_presence_of :handles_regex_eval, message: 'Platform host match can’t be blank' 
+validates_presence_of :longname, message: 'Platform Name can’t be blank' 
