@@ -14,7 +14,7 @@
 		                    <% if current_user.admin? %>
 							<%= link_to 'Delete (ADMIN)', admin_outlet_path(@outlet), { :method => :delete, :class => "usa-button usa-button--secondary"} %>
 							<% end %>    
-		                    <p class="border-solid">Note: Archive accounts only after your agency is no longer using the account and it has already been removed from the third-party social media platform.
+		                    <p class="panel-border">Note: Archive accounts only after your agency is no longer using the account and it has already been removed from the third-party social media platform.
 </p>
 		                    <%= render partial: "outlet_details", locals: {outlet: @outlet} %>
 		                    
