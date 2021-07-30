@@ -3,7 +3,7 @@
   <% if @admin_service.errors.any? %>
     <div class="usa-alert usa-alert--error" role="alert">
       <div class="usa-alert__body">
-        <h3 class="usa-alert__heading">Error: <%= pluralize(@admin_service.errors.count, "error") %> prohibited this service from being saved</h3>
+        <h3 class="usa-alert__heading">Error: <%= pluralize(@admin_service.errors.count, "error") %> stopped this service from being saved</h3>
         <ul>
          <% @admin_service.errors.messages.values.each do |msg| %>
               <%msg.each do  |m| %>
