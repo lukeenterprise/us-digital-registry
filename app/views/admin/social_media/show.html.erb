@@ -3,6 +3,13 @@
 	    <div class="grid-container grid-container-desktop">
 	      	<div class="grid-row">
 		      	<div class="grid-col-12">
+				  <div id="archive_confirm" class="panel-border">
+				  	I confirm that this social media account has already been removed from the third-party social media platform before archiving this record.
+				  	<div class="grid-col-12">
+				  		<%= link_to 'Continue with Archive', archive_admin_outlet_path(@outlet), {:class=> "usa-button usa-button--secondary"} %>
+		          		<%= link_to 'Cancel Request to Archive',admin_outlets_path, {:class=> "usa-button usa-button--secondary"} %>
+		         	 </div>              
+				  </div>
 				  	<%= content_for :page_title do %>Social Media Account Info<% end %>
 				    <h1 class="page-header">Social Media Account Info</h1>
 		            <div class="grid-row">
