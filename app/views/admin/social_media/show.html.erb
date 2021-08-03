@@ -3,11 +3,12 @@
 	    <div class="grid-container grid-container-desktop">
 	      	<div class="grid-row">
 		      	<div class="grid-col-12">
-				  <div id="archive_confirm" class="panel-border">
+				  <div id="archive_confirm" class="panel-border hidden">
 				  	I confirm that this social media account has already been removed from the third-party social media platform before archiving this record.
-				  	<div class="grid-col-12">
+				  	<br>
+					  <div class="grid-col-12">
 				  		<%= link_to 'Continue with Archive', archive_admin_outlet_path(@outlet), {:class=> "usa-button"} %>
-		          		<%= link_to 'Cancel Request to Archive',"", {:onclick => "history.go(0)"} %>
+		          		<%= link_to 'Cancel Request to Archive',"", {:onclick => "history.go(0)"},{:class=> "usa-button"} %>
 		         	 </div>              
 				  </div>
 				  	<%= content_for :page_title do %>Social Media Account Info<% end %>
@@ -17,7 +18,7 @@
 		                   <%= link_to '< Back to Social Media list', admin_outlets_path, {:class => "usa-button usa-button--outline"} %>
 		                    <%= link_to ' Edit', edit_admin_outlet_path(@outlet), {:class => "usa-button usa-button--outline"} %>
 		                    <%= link_to ' Publish', publish_admin_outlet_path(@outlet), {:class => "usa-button"} %>
-		                    <%= link_to ' Archive', archive_admin_outlet_path(@outlet), {:class=> "usa-button usa-button--secondary"} %>
+		                    <%= link_to ' Archive',"", {:class=> "usa-button usa-button--secondary"} %>
 		                    <% if current_user.admin? %>
 							<%= link_to 'Delete (ADMIN)', admin_outlet_path(@outlet), { :method => :delete, :class => "usa-button usa-button--secondary"} %>
 							<% end %>    
