@@ -18,6 +18,10 @@ $(document).ready(function(){
 	$('.btn-learn-more ').on('click',function(){
 		$('#org-details').toggle();
 	});
+	
+	$('#archive-button').click(function(){
+		  $('#archive_confirm').toggle();
+		});
 
 
 });
