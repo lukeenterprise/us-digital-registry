@@ -18,6 +18,7 @@
 		                    <%= link_to ' Edit', edit_admin_outlet_path(@outlet), {:class => "usa-button usa-button--outline"} %>
 		                    <%= link_to ' Publish', publish_admin_outlet_path(@outlet), {:class => "usa-button"} %>
 		                    <%= link_to ' Archive',"", {:class=> "usa-button usa-button--secondary"} %>
+							 <a id="archive-button" class="usa-button usa-button--secondary">Archive2 </a>
 		                    <% if current_user.admin? %>
 							<%= link_to 'Delete (ADMIN)', admin_outlet_path(@outlet), { :method => :delete, :class => "usa-button usa-button--secondary"} %>
 							<% end %>    
@@ -62,3 +63,10 @@
 		</div>
 	</div>
 </section>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('#archive-button').click(function(){
+      $('#archive_confirm').toggle();
+    });
+  });
+</script>
