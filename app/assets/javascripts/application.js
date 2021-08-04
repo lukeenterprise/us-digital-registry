@@ -12,6 +12,7 @@ function humanize(string)
 
 $(document).ready(function(){
 	$('.usa-banner__header-action').on('click',function(){
+		alert('testing2');
 		$('.usa-banner__content').toggle();
 	});
 
@@ -20,6 +21,7 @@ $(document).ready(function(){
 	});
 
 	$('#archive-button').on('click',function(){
+		    alert('testing1');
 			$('#archive_confirm').show();
 		});
 
