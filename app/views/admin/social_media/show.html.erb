@@ -3,8 +3,8 @@
 	    <div class="grid-container grid-container-desktop">
 	      	<div class="grid-row">
 		      	<div class="grid-col-12">
-				  <div id="archive_confirm" class="panel-border hidden">
-				  	I confirm that this social media account has already been removed from the third-party social media platform before archiving this record.
+				  <div id="archive_confirm" class="panel-border hide-panel">
+				  	<p>I confirm that this social media account has already been removed from the third-party social media platform before archiving this record.</p>
      				  <div class="grid-col-12">
 				  		<%= link_to 'Continue with Archive', archive_admin_outlet_path(@outlet), {:class=> "usa-button"} %>
 		          		<%= link_to 'Cancel Request to Archive',"", {:onclick => "history.go(0)",:class=> "usa-button"} %>
