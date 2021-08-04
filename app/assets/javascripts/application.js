@@ -20,7 +20,7 @@ $(document).ready(function(){
 	});
 
 	$('#archive-button').on('click',function(){
-			$('#archive_confirm').show();
-		});
+		$('#archive_confirm').css('display','inline-block');
+	});
 
 });
