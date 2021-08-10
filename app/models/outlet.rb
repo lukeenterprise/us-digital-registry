@@ -118,8 +118,8 @@ class Outlet < ActiveRecord::Base
   has_many :gallery_items, as: :item, dependent: :destroy
   has_many :galleries, through: :gallery_items, source: "Outlet"
 
-  belongs_to :primary_contact, class_name: "User", foreign_key: "primary_contact_id"
-  belongs_to :secondary_contact, class_name: "User", foreign_key: "secondary_contact_id"
+  belongs_to :primary_contact, class_name: "User", foreign_key: "primary_contact_id", optional: true
+  belongs_to :secondary_contact, class_name: "User", foreign_key: "secondary_contact_id", optional: true
 
   # validates :primary_contact, :presence => true
   # validates :secondary_contact, :presence => true

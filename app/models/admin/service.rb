@@ -4,6 +4,7 @@ class Admin::Service < ActiveRecord::Base
   scope :sorted, -> { order(:shortname) }
   scope :every, -> { sorted }
   scope :unarchived, -> { where(archived: false).sorted }
+ 
 
   def self.find_by_shortname(shortname)
     find_by(shortname: shortname.to_s)
@@ -32,6 +33,9 @@ class Admin::Service < ActiveRecord::Base
   def handles?(uri)
     handles_regex_eval.to_regexp =~ uri.host
   end
+
+  validates_presence_of :service_url_example, message: 'URL can’t be blank' 
+  validates_presence_of :longname, message: 'Platform Name can’t be blank' 
 end
 
 # == Schema Information
@@ -50,3 +54,4 @@ end
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #
+#validates :service_url_example, :presence => true

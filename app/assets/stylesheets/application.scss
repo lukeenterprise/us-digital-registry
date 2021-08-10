@@ -193,3 +193,13 @@ input::-ms-input-placeholder { /* Microsoft Edge */
 	box-shadow: none !important;
 	-webkit-box-shadow: none !important;
 }
+
+.panel-border{
+	border-style: solid;
+	padding: 1.2%;
+	background-color: #e7f6f8;
+}
+
+.hide-panel{
+	display:none;
+}

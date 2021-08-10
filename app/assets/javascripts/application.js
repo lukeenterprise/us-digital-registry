@@ -19,5 +19,9 @@ $(document).ready(function(){
 		$('#org-details').toggle();
 	});
 
+	$('#archive-button').on('click',function(){
+		$('#archive_confirm').css('display','inline-block');
+		$('#archive_confirm').css('background-coolor','#e7f6f8');
+	});
 
 });
