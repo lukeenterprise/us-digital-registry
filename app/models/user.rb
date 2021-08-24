@@ -24,7 +24,7 @@
 #  contact_notifications        :boolean          default(TRUE)
 #  contact_notifications_emails :boolean          default(TRUE)
 #  email_notification_type      :integer          default("full_html_email")
-#
+#  active                       :boolean          default(TRUE)
 
 class User < ActiveRecord::Base
 
