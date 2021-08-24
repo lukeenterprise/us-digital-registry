@@ -1,4 +1,4 @@
-//= require jquery-3.5.1.min
+//= require jquery-3.6.0.min
 //= require jquery_ujs
 //= require handlebars-v4.7.7
 //= require selectize
