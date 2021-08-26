@@ -49,6 +49,7 @@
 <% content_for :additional_javascript do %>
   <script>
     var data_tables = null;
+    var current_date = new Date();
     $(document).ready(function() {
        data_tables = $('#data-tables').dataTable({
          "ajax" : {
@@ -60,6 +61,7 @@
           { "data" : "role"},
           { "data" : "sign_in_count"},
           { "data" : "last_sign_in_at"},
+          { "data" : "active"},
           { "data" : "DT_RowId"}
         ],
         "columnDefs": [
