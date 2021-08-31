@@ -31,7 +31,7 @@
                     <td class="table_data"><%= user.role.titleize if user.role %> </td>
                     <td class="table_data"><%= user.sign_in_count %> </td>
                     <td class="table_data"><%= user.last_sign_in_at.strftime("%B %e, %Y %H:%M %Z") if user.last_sign_in_at? %> </td>
-            				<td class="table_data"><%= user.active %></td>
+            				<td class="table_data"><%= user.isactive %></td>
                     <td class="table_data lastlinks">
                      <%= link_to admin_user_path(user) do %> <i class="glyphicon glyphicon-info-sign"></i> <%end %>
                      <%= link_to edit_admin_user_path(user) do %> <i class="glyphicon glyphicon-pencil"> </i> <% end %>
@@ -61,7 +61,7 @@
           { "data" : "role"},
           { "data" : "sign_in_count"},
           { "data" : "last_sign_in_at"},
-          { "data" : "active"},
+          { "data" : "isactive"},
           { "data" : "DT_RowId"}
         ],
         "columnDefs": [
