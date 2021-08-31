@@ -5,4 +5,5 @@ json.data @users do |user|
   json.set! :role, user.role.try(:humanize)
   json.set! :sign_in_count, user.sign_in_count
   json.set! :last_sign_in_at, user.last_sign_in_at ? user.last_sign_in_at.strftime("%B %e, %Y %H:%M %Z") : ""
+  json.set! :isactive, user.isactive
 end
