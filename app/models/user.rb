@@ -78,11 +78,11 @@ class User < ActiveRecord::Base
     admin? || super_user?
   end
 
-  def self.number_of_days
+  def self.idle_day
     now = Date.today
     before = user.last_sign_in_at
     difference_in_days = (now - before).to_i
-    return(difference_in_days/365.25).to_i    
+    (difference_in_days/365.25).to_i    
   end
 
 end
