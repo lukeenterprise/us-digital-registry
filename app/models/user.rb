@@ -77,6 +77,18 @@ class User < ActiveRecord::Base
   def cross_agency?
     admin? || super_user?
   end
+  def disable
+    self.isactive = false
+    self.save
+    
+  end
+
+  def activate
+    self.isactive = TRUE
+    self.last_activated_at = Date.today
+    self.save
+    
+  end
 
   def idle_day
     now = Date.today

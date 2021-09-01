@@ -15,4 +15,9 @@
   <p>If you are having trouble with the link, follow this url <%= admin_outlet_url(@notification.item) %></p><br/>
   <p>Social Media Account Details:</p>
   <%= render partial: "outlet_details", locals: {outlet: @notification.item } %>
+
+<% elsif @notification.item_type == "User"  %>
+  <%= link_to "User Is Activated", admin_user_url(@notification.item) %>
+  <p>User is given access to the site</p>
+ 
 <% end %>
