@@ -54,7 +54,7 @@
   </div>
   <div class = "field">
     <%= f.label :isactive, {class: 'usa-label'} %>
-    <%= f.check_box :isactive, checked: @event.new_record? || @user.isactive? %>
+    <%= f.check_box :isactive, {},true,false %>
   </div>
 
   <div class = "field">
