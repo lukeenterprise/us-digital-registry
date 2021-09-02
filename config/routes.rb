@@ -116,8 +116,8 @@
 #                                              DELETE   /admin/galleries/:id(.:format)                                                           admin/galleries#destroy
 #                       tokeninput_admin_users GET      /admin/users/tokeninput(.:format)                                                        admin/users#tokeninput
 #         destroy_all_admin_user_notifications GET      /admin/users/:user_id/notifications/destroy_all(.:format)                                admin/notifications#destroy_all
-#                           actived_admin_user PUT      /admin/users/:id/actived(.:format)                                                              admin/users#actived
-#                          deactive_admin_user PUT      /admin/users/:id/deactive(.:format)                                                               admin/users#deactive
+#                           actived_admin_user GET      /admin/users/:id/actived(.:format)                                                              admin/users#actived
+#                          deactive_admin_user GET      /admin/users/:id/deactive(.:format)                                                               admin/users#deactive
 
 #                                              DELETE   /admin/users/:user_id/notifications/destroy_all(.:format)                                admin/notifications#destroy_all
 #                     admin_user_notifications GET      /admin/users/:user_id/notifications(.:format)                                            admin/notifications#index
@@ -306,8 +306,8 @@ Ringsail::Application.routes.draw do
     resources :users do
       collection do
         get 'tokeninput'
-        put "actived"
-        put "deactive"
+        get "actived"
+        get "deactive"
       end
       resources :notifications, only: [:index, :show, :destroy] do
         collection do
