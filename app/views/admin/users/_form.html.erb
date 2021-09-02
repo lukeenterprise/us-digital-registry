@@ -55,9 +55,9 @@
   <div class = "field">
     <%= f.label :isactive, {class: 'usa-label'} %><br />
     <%= f.label :isactive, "Yes", :value => "true"%>
-    <%= f.radia_button :isactive, true, !!@user.isactive %>
+    <%= f.radio_button :isactive, true, !!@user.isactive %>
     <%= f.label :isactive, "No", :value => "false"%>
-    <%= f.radia_button :isactive, false, !!@user.isactive %>
+    <%= f.radio_button :isactive, false, !!@user.isactive %>
   </div>
 
   <div class = "field">
