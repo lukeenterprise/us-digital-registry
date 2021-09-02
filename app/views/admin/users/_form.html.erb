@@ -53,11 +53,8 @@
     <%= f.text_field :phone, :class => "usa-input" %>
   </div>
   <div class = "field">
-    <%= f.label :isactive, {class: 'usa-label'} %><br />
-    <%= f.label :isactive, "Yes", :value => "true"%>
-    <%= f.radio_button :isactive, true, !!@user.isactive %>
-    <%= f.label :isactive, "No", :value => "false"%>
-    <%= f.radio_button :isactive, false, !!@user.isactive %>
+    <%= f.label :isactive, {class: 'usa-label'} %>
+    <%= f.check_box :isactive, checked: @event.new_record? || @user.isactive? %>
   </div>
 
   <div class = "field">
