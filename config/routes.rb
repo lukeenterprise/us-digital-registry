@@ -116,8 +116,8 @@
 #                                              DELETE   /admin/galleries/:id(.:format)                                                           admin/galleries#destroy
 #                       tokeninput_admin_users GET      /admin/users/tokeninput(.:format)                                                        admin/users#tokeninput
 #         destroy_all_admin_user_notifications GET      /admin/users/:user_id/notifications/destroy_all(.:format)                                admin/notifications#destroy_all
-#                           actived_admin_user GET      /admin/users/:id/actived(.:format)                                                              admin/users#actived
-#                          deactive_admin_user GET      /admin/users/:id/deactive(.:format)                                                               admin/users#deactive
+#                          activate_admin_user POST     /admin/users/:id/activate(.:format)                                                      admin/users#activate
+#                        deactivate_admin_user POST     /admin/users/:id/deactivate(.:format)                                                    admin/users#deactivate
 
 #                                              DELETE   /admin/users/:user_id/notifications/destroy_all(.:format)                                admin/notifications#destroy_all
 #                     admin_user_notifications GET      /admin/users/:user_id/notifications(.:format)                                            admin/notifications#index
@@ -306,8 +306,7 @@ Ringsail::Application.routes.draw do
     resources :users do
       collection do
         get 'tokeninput'
-        get "actived"
-        get "deactive"
+       
       end
       resources :notifications, only: [:index, :show, :destroy] do
         collection do
@@ -320,6 +319,8 @@ Ringsail::Application.routes.draw do
         # accept patch/put for update_notifications
         put 'update_notification_settings'
         patch 'update_notification_settings'
+        post "activate"
+        post "deactivate"
       end
     end
     resources :email_messages
