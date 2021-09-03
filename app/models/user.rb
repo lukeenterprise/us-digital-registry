@@ -24,7 +24,7 @@
 #  contact_notifications        :boolean          default(TRUE)
 #  contact_notifications_emails :boolean          default(TRUE)
 #  email_notification_type      :integer          default("full_html_email")
-#  isactive                       :boolean          default(TRUE)
+#  isactive                     :boolean          default(TRUE)
 #  last_activated_at            :datetime
 
 class User < ActiveRecord::Base
@@ -77,6 +77,7 @@ class User < ActiveRecord::Base
   def cross_agency?
     admin? || super_user?
   end
+
   def disable
     self.isactive = false
     self.save
@@ -90,7 +91,7 @@ class User < ActiveRecord::Base
     
   end
 
-  def idle_day
+  def idle_days
     now = Date.today
     before = user.last_sign_in_at
     difference_in_days = (now - before).to_i

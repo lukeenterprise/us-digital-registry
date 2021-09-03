@@ -48,14 +48,11 @@
     <%= f.label :phone, {class: 'usa-label'} %>
     <%= f.text_field :phone, :class => "usa-input" %>
   </div>
-  <div class = "field">
-    <%= f.label :isact, {class: 'usa-label'} %>
-    <%= f.text_field :phone, :class => "usa-input" %>
-  </div>
-  <div class = "field">
+   <div class = "field">
     <%= f.label :isactive, {class: 'usa-label'} %>
-    <%= f.check_box :isactive, {},true,false %>
+    <%= f.check_box :isactive %>
   </div>
+
 
   <div class = "field">
     <%= f.submit "Save Changes", :class => "usa-button" %>

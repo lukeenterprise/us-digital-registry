@@ -2,7 +2,7 @@ class Admin::UsersController < Admin::AdminController
   helper_method :sort_column, :sort_direction
   respond_to :html, :xml, :json
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :deactive, :actived, :edit_notification_settings, :update_notification_settings, :notifications]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :deactivate, :activate, :edit_notification_settings, :update_notification_settings, :notifications]
   before_action :require_admin, only: [:index, :destroy]
   before_action :require_admin_or_owner, except: [:index, :tokeninput]
   before_action :admin_two_factor, except: [:index, :tokeninput, :show]
@@ -83,12 +83,12 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  def deactive
+  def deactivate
     @user.disable  
     redirect_to admin_user_path(@user), :notice => "User is disabled"
   end
 
-  def actived
+  def activate
     @user.activate  
     redirect_to admin_user_path(@user), :notice => "User is disabled"
   end
