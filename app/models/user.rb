@@ -92,14 +92,15 @@ class User < ActiveRecord::Base
   end
 
   def idle_days
-    now = Date.today
-    before = self.last_sign_in_at
-    difference_in_days = 0
-    if(self.sign_in_count > 0)
-      difference_in_days = (now - before).to_i
-      (difference_in_days/365.25).to_i  
-    end
-    return difference_in_days
+    # now = Date.today
+    # before = self.last_sign_in_at
+    # difference_in_days = 0
+    # if(self.sign_in_count > 0)
+    #   difference_in_days = (now - before).to_i
+    #   (difference_in_days/365.25).to_i  
+    # end
+    # return difference_in_days
+    return 100
   end
 
 end
