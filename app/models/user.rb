@@ -92,6 +92,9 @@ class User < ActiveRecord::Base
   end
 
   def idle_days
+    Rails.logger.info "email"
+    Rails.logger.info email
+
     now = Date.today
     Rails.logger.info "now"
     Rails.logger.info now
@@ -99,7 +102,7 @@ class User < ActiveRecord::Base
     before = self.last_sign_in_at
     Rails.logger.info "before:"
     Rails.logger.info Date.parse(before.to_s)
-    
+
     Rails.logger.info "self.sign_in_count:"
     Rails.logger.info self.sign_in_count
 
