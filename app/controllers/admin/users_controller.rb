@@ -89,8 +89,9 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def activate
-    @user.activate  
-    redirect_to admin_user_path(@user), :notice => "User is disabled"
+    @user.activate
+    @user.build_notifications(:activated)
+    redirect_to admin_user_path(@user), :notice => "User is enabled"
   end
 
   # DELETE /users/1
