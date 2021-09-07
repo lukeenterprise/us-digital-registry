@@ -113,11 +113,11 @@ class User < ActiveRecord::Base
     if(self.sign_in_count > 0)
       Rails.logger.info "condtion true"
 
-      difference = (now - before)
+      difference = (now.to_date  - before.to_date ).to_i
       Rails.logger.info "difference:"
       Rails.logger.info difference
 
-      difference_in_days = difference.to_i
+      
       Rails.logger.info "difference_in_days:"
       Rails.logger.info difference_in_days
     end
