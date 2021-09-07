@@ -19,6 +19,7 @@
                   <th>Role</th>
                   <th>Sign-in Count</th>
                   <th>Last Sign-in</th>
+                  <th>Idle Days</th>
                   <th>IsActive</th>
             			<th class="lastlinks">Actions</th>
             		</tr>
@@ -31,7 +32,8 @@
                     <td class="table_data"><%= user.role.titleize if user.role %> </td>
                     <td class="table_data"><%= user.sign_in_count %> </td>
                     <td class="table_data"><%= user.last_sign_in_at.strftime("%B %e, %Y %H:%M %Z") if user.last_sign_in_at? %> </td>
-            				<td class="table_data"><%= user.isactive %></td>
+            				<td class="table_data"><%= user.idle_days %></td>
+                    <td class="table_data"><%= user.isactive %></td>
                     <td class="table_data lastlinks">
                      <%= link_to admin_user_path(user) do %> <i class="glyphicon glyphicon-info-sign"></i> <%end %>
                      <%= link_to edit_admin_user_path(user) do %> <i class="glyphicon glyphicon-pencil"> </i> <% end %>
@@ -61,6 +63,7 @@
           { "data" : "role"},
           { "data" : "sign_in_count"},
           { "data" : "last_sign_in_at"},
+          { "data" : "idle_days"},
           { "data" : "isactive"},
           { "data" : "DT_RowId"}
         ],
@@ -75,7 +78,7 @@
           {
             "render": function(data,type,row){
               return '<a href="/admin/users/'+data+'">Info</a> <a href="/admin/users/'+data+'/edit">Edit</a>';
-            }, "targets":[6]
+            }, "targets":[7]
           }
         ],
         'sDom':'<"grid-row"<"grid-col-5 grid-offset-1"f><"grid-col-5 grid-offset-1"l>><"grid-row"<"grid-col-10 grid-offset-1"pi>>rt<"grid-row"<"grid-col-10 grid-offset-1"ip>><"grid-row"<"grid-col-10 grid-offset-1">>'});

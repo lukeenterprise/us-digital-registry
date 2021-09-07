@@ -42,9 +42,17 @@ module Admin::AdminHelper
   def user_list_format(user)
     if user
       if user.first_name && user.last_name
+        if user.isactive
         "".html_safe + "#{user.try(:first_name)} #{user.try(:last_name)} -" + "<a href=\"mailto:".html_safe+"#{user.email}"+"\">".html_safe+"#{user.email}"+"</a>".html_safe
+        else
+          "".html_safe + "#{user.try(:first_name)} #{user.try(:last_name)} -" + "<a href=\"mailto:".html_safe+"#{user.email}"+"\">".html_safe+"#{user.email}"+"</a>"+"**".html_safe
+        end  
       else
+        if user.isactive
         "".html_safe + "<a href=\"mailto:".html_safe+"#{user.email}"+"\">".html_safe+"#{user.email}"+"</a>".html_safe
+        else
+          "".html_safe + "<a href=\"mailto:".html_safe+"#{user.email}"+"\">".html_safe+"#{user.email}"+"</a>"+"**".html_safe
+        end
       end
     else
       "Deleted User".html_safe
