@@ -18,7 +18,7 @@ module Users
           Rails.logger.info 'user is inactive'
           redirect_to root_path, status: 302, notice: "Your account is locked.  Please contact the administrators."
         end
-      end
+      
       # Can't find an account, tell user to contact login.gov team
       else
         if(omniauth_info['email'].end_with?(".gov") || omniauth_info['email'].end_with?(".mil"))
