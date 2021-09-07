@@ -10,12 +10,13 @@ module Users
       @user = User.find_by(email: omniauth_info['email'])
       if @user
         if(@user.isactive)
+        Rails.logger.info 'user is active'
         @user.update!(user: omniauth_info['uuid'])
         sign_in @user
         redirect_to admin_path
         end
         redirect_to root_path, status: 302, notice: "Your account is locked.  Please contact the administrators."
-
+      end
       # Can't find an account, tell user to contact login.gov team
       else
         if(omniauth_info['email'].end_with?(".gov") || omniauth_info['email'].end_with?(".mil"))
