@@ -90,7 +90,7 @@ class Admin::UsersController < Admin::AdminController
 
   def activate
     @user.activate
-    @user.notifications_user_active()
+    @user.notifications_user_active("test")
     redirect_to admin_user_path(@user), :notice => "User is enabled"
   end
 

@@ -36,7 +36,7 @@ module Notifications
     contact_users.flatten.uniq
   end
 
-  def notifications_user_active
+  def notifications_user_active(message="")
     contact_users = self
     contact_user_ids = contact_users.map(&:id)
     Notification.create!(item: self, user: self, notification_type: :contact, message_type: 'activated', message: 'This is a test message' )
