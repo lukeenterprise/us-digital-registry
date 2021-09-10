@@ -5,8 +5,8 @@ module Notifications
   def build_notifications(message_type, message="")
     contact_users = users.where(contact_notifications: true)
     contact_users.each do |notification_user|
-      Notification.create!(item: self, user: notification_user, notification_type: :contact, message_type: message_type, message: message )
-    end
+   Notification.create!(item: self, user: notification_user, notification_type: :contact, message_type: message_type, message: message )
+       end
     contact_user_ids = contact_users.map(&:id)
 
     # ensure we don't double create notifications. contacts list is done first, then agencies for those that sub to them.
@@ -34,6 +34,12 @@ module Notifications
     contact_user_ids = contact_users.map(&:id)
     contact_users << User.where(agency_id: agencies.map(&:id), agency_notifications: true)
     contact_users.flatten.uniq
+  end
+
+  def notifications_user_active
+    contact_users = self
+    contact_user_ids = contact_users.map(&:id)
+    Notification.create!(item: self, user: self, notification_type: :contact, message_type: 'activated', message: 'This is a test message' )
   end
 
 end
