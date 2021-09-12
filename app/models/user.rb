@@ -28,6 +28,7 @@
 #  last_activated_at            :datetime
 
 class User < ActiveRecord::Base
+  include Notifications
 
   belongs_to :agency
 
