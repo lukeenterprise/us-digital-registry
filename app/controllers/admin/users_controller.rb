@@ -110,7 +110,12 @@ class Admin::UsersController < Admin::AdminController
       format.json { render 'tokeninput'}
     end
   end
-
+  def admin_users_export                         
+      @users = users.es_search(params, sort_column, sort_direction)  
+      respond_to do |format|
+      format.csv { render plain: @users.to_csv }
+      end
+  end
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user

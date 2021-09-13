@@ -1,4 +1,6 @@
+<% if @notification.item_type != "User" %>
 <p>Change made by: <%= @notification.item.activities.order("created_at DESC").first.try(:owner).try(:email) %></p>
+<% end %>
 <% if @notification.item_type == "MobileApp" %>
   <%= link_to "See this Mobile Product registration here.", admin_mobile_app_url(@notification.item) %>
   <p>If you are having trouble with the link, follow this url <%= admin_mobile_app_url(@notification.item) %></p><br/>
@@ -17,7 +19,7 @@
   <%= render partial: "outlet_details", locals: {outlet: @notification.item } %>
 
 <% elsif @notification.item_type == "User"  %>
-  <%= link_to "User Is Activated", admin_user_url(@notification.item) %>
+  <%= link_to "User Is Activated", admin_dashboards_path %>
   <p>User is given access to the site</p>
  
 <% end %>

@@ -118,6 +118,7 @@
 #         destroy_all_admin_user_notifications GET      /admin/users/:user_id/notifications/destroy_all(.:format)                                admin/notifications#destroy_all
 #                          activate_admin_user POST     /admin/users/:id/activate(.:format)                                                      admin/users#activate
 #                        deactivate_admin_user POST     /admin/users/:id/deactivate(.:format)                                                    admin/users#deactivate
+#                           admin_users_export POST     /admin/users/admin_users_export(.:format)                                                admin/users#admin_users_export
 
 #                                              DELETE   /admin/users/:user_id/notifications/destroy_all(.:format)                                admin/notifications#destroy_all
 #                     admin_user_notifications GET      /admin/users/:user_id/notifications(.:format)                                            admin/notifications#index
@@ -312,6 +313,7 @@ Ringsail::Application.routes.draw do
         collection do
           get 'destroy_all'
           delete 'destroy_all'
+          post "admin_users_export"
         end
       end
       member do
