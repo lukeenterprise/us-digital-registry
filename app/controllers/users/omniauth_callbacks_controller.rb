@@ -16,7 +16,7 @@ module Users
           redirect_to admin_path
         else
           Rails.logger.info 'user is inactive'
-          redirect_to root_path, status: 302, notice: "Your account is locked.  Please contact the administrators."
+          redirect_to root_path, status: 302, notice: "Your account has been deactivated because it has been more than 90 days since your last log in to the site. Please contact the U.S. Digital Registry site administrators at usdigitalregistry@gsa.gov to request that your account be reactivated. Thank you."
         end
       
       # Can't find an account, tell user to contact login.gov team

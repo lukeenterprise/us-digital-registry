@@ -52,9 +52,7 @@
     </div>
   </div>
 </section>
-<%= form_tag admin_users_export_path(format: :csv), method: :post, class: 'hidden', id: "csv_export" do %>
-   <%= hidden_field_tag :ids %>
-<% end %>
+
 <% content_for :additional_javascript do %>
   <script>
     var data_tables = null;
@@ -90,21 +88,6 @@
         ],
         'sDom':'<"grid-row"<"grid-col-5 grid-offset-1"f><"grid-col-5 grid-offset-1"l>><"grid-row"<"grid-col-10 grid-offset-1"pi>>rt<"grid-row"<"grid-col-10 grid-offset-1"ip>><"grid-row"<"grid-col-10 grid-offset-1">>'});
     } );
-    all_ids = "";
-    function export_csv(){
-      rows = $("#data-tables").dataTable().$('tr', {"filter":"applied"});
-      all_ids = []
-      for(var i =0; i<rows.length; i++){
-        all_ids.push(rows[i].id);
-      }
-      $('#ids').val(all_ids.join(","));
-      $('#csv_export').submit();
-    }
-
-    function add_tag(name){
-      data_tables.fnFilter(name);
-    }
-
-
+   
   </script>
 <% end %>

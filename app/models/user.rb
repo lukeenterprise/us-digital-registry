@@ -94,36 +94,24 @@ class User < ActiveRecord::Base
   end
 
   def idle_days
-    Rails.logger.info "email"
-    Rails.logger.info email
-
     now = Date.today
-    Rails.logger.info "now"
-    Rails.logger.info now
-
-    before = self.last_sign_in_at
-    
-
-    Rails.logger.info "self.sign_in_count:"
-    Rails.logger.info self.sign_in_count
-
-    Rails.logger.info "(self.sign_in_count > 0):"
-    Rails.logger.info (self.sign_in_count > 0)
-
+    before = self.last_sign_in_at     
     difference_in_days = 0
     if(self.sign_in_count > 0)
-      Rails.logger.info "before:"
-      Rails.logger.info Date.parse(before.to_s)
-      Rails.logger.info "condtion true"
-
-      difference_in_days = (now.to_date  - before.to_date ).to_i
-      Rails.logger.info "difference:"
-            
-      Rails.logger.info "difference_in_days:"
-      
+        difference_in_days = (now.to_date  - before.to_date ).to_i        
     end
     # return difference_in_days
     return  difference_in_days
+  end
+
+  def self.export_csv(options={})
+    CSV.generate(options) do |csv|
+      csv << ["id","email","last_sign_in_at","role","isactive"]
+
+      self.all.includes(:id,:email,:official_tags).each do |outlet|
+        csv << [user.id ,user.email, user.organization, user.service_url, outlet.official_tags.map(&:tag_text).join("|"), outlet.updated_at]
+      end
+    end
   end
 
 end
