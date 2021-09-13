@@ -38,7 +38,7 @@ module Notifications
 
   def notifications_user_active(message="")
        Rails.logger.info "notify user"
-     contact_users = self.where(contact_notifications: true)
+     contact_users = self.when(contact_notifications: true)
      contact_users.each do |notification_user|
       Rails.logger.info notification_user
       Rails.logger.info contact_users
