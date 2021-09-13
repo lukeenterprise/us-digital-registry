@@ -37,14 +37,9 @@ module Notifications
   end
 
   def notifications_user_active(message="")
-       Rails.logger.info "notify user"
-     contact_users = self.when(contact_notifications: true)
-     contact_users.each do |notification_user|
-      Rails.logger.info notification_user
-      Rails.logger.info contact_users
-     Notification.create!(item: self, user: notification_user, notification_type: :contact, message_type: 'activate', message: 'This is a test message' )
-     end
-    contact_user_ids = contact_users.map(&:id)
- end
+    contact_users = self
+    Rails.logger.info "notify"
+    Notification.create!(item: self, user: self, notification_type: :contact, message_type: 'activate', message: 'This is a test message' )
+  end
 
 end
