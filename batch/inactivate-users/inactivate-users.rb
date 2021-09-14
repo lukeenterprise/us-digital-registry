@@ -1,6 +1,7 @@
 #!/usr/bin/ruby
 
 require "logger"
+require "active_record"
 logger = Logger.new(STDOUT)
 
 logger.info('Program Name: Inactivate Users')
