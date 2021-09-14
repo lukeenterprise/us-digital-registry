@@ -20,14 +20,14 @@
 
 <% elsif @notification.item_type == "User"  %>
  <div> Hi user,</div>
- <p>Your user account on the U.S. Digital Registry site has been activated and is ready for you to login.</p>
+ <p>Your user account on the  <%= link_to "U.S. Digital Registry site", root_path() %> has been activated and is ready for you to login.</p>
 
- <p>Go to the U.S. Digital Registry homepage.
+ <p>Go to the  <%= link_to "U.S. Digital Registry", root_path %> homepage.
 Find the “Federal Accounts Sign in with Login.gov” link in the upper right. You’ll be brought to the Login.gov log in page for the U.S. Digital Registry.
 Use your Login.gov credentials associated with your government email address account to log in.</p>
 
 
-<p>If you have questions or need assistance, please contact the site administrators at usdigitalregistry@gsa.gov</p>
+<p>If you have questions or need assistance, please contact the site administrators at <a href="mailto:usdigitalregistry@gsa.gov">usdigitalregistry@gsa.gov</a></p>
 
 <p>Thank you,</p>
 
