@@ -8,6 +8,9 @@ logger.info('Description: Inactivate users who have not logged into the system i
 
 logger.debug('Program begin')
 
+logger.debug('Listing all environment keys')
+logger.debug(ENV.keys)
+
 logger.debug('Querying database to find all users who have not logged into the system for last 90 days')
 logger.debug('Update user to set active to false')
 
