@@ -2,7 +2,7 @@ class Admin::UsersController < Admin::AdminController
   helper_method :sort_column, :sort_direction
   respond_to :html, :xml, :json
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_notification_settings, :update_notification_settings, :notifications]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :deactivate, :activate, :edit_notification_settings, :update_notification_settings, :notifications]
   before_action :require_admin, only: [:index, :destroy]
   before_action :require_admin_or_owner, except: [:index, :tokeninput]
   before_action :admin_two_factor, except: [:index, :tokeninput, :show]
@@ -83,6 +83,17 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
+  def deactivate
+    @user.disable  
+    redirect_to admin_user_path(@user), :notice => "User is disabled"
+  end
+
+  def activate
+    @user.activate
+    @user.notifications_user_active("test")
+    redirect_to admin_user_path(@user), :notice => "User is enabled"
+  end
+
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
@@ -99,7 +110,12 @@ class Admin::UsersController < Admin::AdminController
       format.json { render 'tokeninput'}
     end
   end
-
+  def admin_users_export                         
+      @users = users.es_search(params, sort_column, sort_direction)  
+      respond_to do |format|
+      format.csv { render plain: @users.to_csv }
+      end
+  end
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user

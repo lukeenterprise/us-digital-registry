@@ -69,4 +69,11 @@ class Admin::AdminController < ApplicationController
     end
   end
 
+  #08/27/2021 check active user
+  def active_user
+    if !current_user.isactive?
+      redirect_to root_path, status: 302, notice: "You have been inactivated from the system you may want to email an admin directly if you believe this to be in error."
+    end
+  end
+
 end

@@ -24,9 +24,12 @@
 #  contact_notifications        :boolean          default(TRUE)
 #  contact_notifications_emails :boolean          default(TRUE)
 #  email_notification_type      :integer          default("full_html_email")
-#
+#  isactive                     :boolean          default(TRUE)
+#  last_activated_at            :datetime
 
 class User < ActiveRecord::Base
+  include PublicActivity::Model
+  include Notifications
 
   belongs_to :agency
 
@@ -75,6 +78,40 @@ class User < ActiveRecord::Base
 
   def cross_agency?
     admin? || super_user?
+  end
+
+  def disable
+    self.isactive = false
+    self.save
+    
+  end
+
+  def activate
+    self.isactive = TRUE
+    self.last_activated_at = Date.today
+    self.save
+    
+  end
+
+  def idle_days
+    now = Date.today
+    before = self.last_sign_in_at     
+    difference_in_days = 0
+    if(self.sign_in_count > 0)
+        difference_in_days = (now.to_date  - before.to_date ).to_i        
+    end
+    # return difference_in_days
+    return  difference_in_days
+  end
+
+  def self.export_csv(options={})
+    CSV.generate(options) do |csv|
+      csv << ["id","email","last_sign_in_at","role","isactive"]
+
+      self.all.includes(:id,:email,:official_tags).each do |outlet|
+        csv << [user.id ,user.email, user.organization, user.service_url, outlet.official_tags.map(&:tag_text).join("|"), outlet.updated_at]
+      end
+    end
   end
 
 end

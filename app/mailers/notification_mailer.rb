@@ -4,7 +4,12 @@ class NotificationMailer < ActionMailer::Base
 
   def email(notification)
     @notification = notification
-    subject = "#{t(@notification.item.class)} has been #{@notification.message_type}"
+    subject = "U.S. Digital Registry"
+    if (@notification.item_type != "User")
+       subject = "#{t(@notification.item.class)} has been #{@notification.message_type}"
+    else (@notification.item_type == "User") 
+       subject = "Your U.S. Digital Registry account has been activated"
+    end
     body = "#{@notification.message}"
     mail(:to => @notification.user.email, :subject => subject) do |format|
     format.html {

@@ -1,4 +1,6 @@
+<% if @notification.item_type != "User" %>
 <p>Change made by: <%= @notification.item.activities.order("created_at DESC").first.try(:owner).try(:email) %></p>
+<% end %>
 <% if @notification.item_type == "MobileApp" %>
   <%= link_to "See this Mobile Product registration here.", admin_mobile_app_url(@notification.item) %>
   <p>If you are having trouble with the link, follow this url <%= admin_mobile_app_url(@notification.item) %></p><br/>
@@ -15,4 +17,21 @@
   <p>If you are having trouble with the link, follow this url <%= admin_outlet_url(@notification.item) %></p><br/>
   <p>Social Media Account Details:</p>
   <%= render partial: "outlet_details", locals: {outlet: @notification.item } %>
+
+<% elsif @notification.item_type == "User"  %>
+ <div> Hi user,</div>
+ <p>Your user account on the <a href="https://usdigitalregistry.digitalgov.gov">U.S. Digital Registry site</a> has been activated and is ready for you to login.</p>
+
+ <p>1. Go to the <a href="https://usdigitalregistry.digitalgov.gov">U.S. Digital Registry</a> homepage.
+ <br>2. Find the “Federal Accounts Sign in with Login.gov” link in the upper right. You’ll be brought to the Login.gov log in page for the U.S. Digital Registry.
+<br>3. Use your Login.gov credentials associated with your government email address account to log in.
+</p>
+
+
+<p>If you have questions or need assistance, please contact the site administrators at <a href="mailto:usdigitalregistry@gsa.gov">usdigitalregistry@gsa.gov</a></p>
+
+<p>Thank you,</p>
+
+<p>U.S. Digital Registry Administrators</p>
+ 
 <% end %>

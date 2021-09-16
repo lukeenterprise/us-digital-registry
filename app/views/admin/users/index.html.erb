@@ -8,6 +8,7 @@
         <div class="bg-info">
             <p>Users are currently managed through Login.gov, this interface is for looking up information related to those users as necessary.</p>
           </div>
+          
             <div class="grid-row">
 
               <div class="grid-col-12">
@@ -19,6 +20,8 @@
                   <th>Role</th>
                   <th>Sign-in Count</th>
                   <th>Last Sign-in</th>
+                  <th>Idle Days</th>
+                  <th>IsActive</th>
             			<th class="lastlinks">Actions</th>
             		</tr>
               </thead>
@@ -30,7 +33,9 @@
                     <td class="table_data"><%= user.role.titleize if user.role %> </td>
                     <td class="table_data"><%= user.sign_in_count %> </td>
                     <td class="table_data"><%= user.last_sign_in_at.strftime("%B %e, %Y %H:%M %Z") if user.last_sign_in_at? %> </td>
-            				<td class="table_data lastlinks">
+            				<td class="table_data"><%= user.idle_days %></td>
+                    <td class="table_data"><%= user.isactive %></td>
+                    <td class="table_data lastlinks">
                      <%= link_to admin_user_path(user) do %> <i class="glyphicon glyphicon-info-sign"></i> <%end %>
                      <%= link_to edit_admin_user_path(user) do %> <i class="glyphicon glyphicon-pencil"> </i> <% end %>
                    </td>
@@ -44,9 +49,11 @@
     </div>
   </div>
 </section>
+
 <% content_for :additional_javascript do %>
   <script>
     var data_tables = null;
+    var current_date = new Date();
     $(document).ready(function() {
        data_tables = $('#data-tables').dataTable({
          "ajax" : {
@@ -58,6 +65,8 @@
           { "data" : "role"},
           { "data" : "sign_in_count"},
           { "data" : "last_sign_in_at"},
+          { "data" : "idle_days"},
+          { "data" : "isactive"},
           { "data" : "DT_RowId"}
         ],
         "columnDefs": [
@@ -71,12 +80,11 @@
           {
             "render": function(data,type,row){
               return '<a href="/admin/users/'+data+'">Info</a> <a href="/admin/users/'+data+'/edit">Edit</a>';
-            }, "targets":[5]
+            }, "targets":[7]
           }
         ],
         'sDom':'<"grid-row"<"grid-col-5 grid-offset-1"f><"grid-col-5 grid-offset-1"l>><"grid-row"<"grid-col-10 grid-offset-1"pi>>rt<"grid-row"<"grid-col-10 grid-offset-1"ip>><"grid-row"<"grid-col-10 grid-offset-1">>'});
     } );
-
-
+   
   </script>
 <% end %>

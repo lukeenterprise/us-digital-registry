@@ -253,7 +253,7 @@ class MobileApp < ActiveRecord::Base
   def published!
     MobileApp.public_activity_off
     self.status = MobileApp.statuses[:published]
-    self.save(validate: false)
+    self.save(validate: true)
     MobileApp.public_activity_on
     self.create_activity :published
   end
@@ -261,7 +261,7 @@ class MobileApp < ActiveRecord::Base
   def archived!
     MobileApp.public_activity_off
     self.status = MobileApp.statuses[:archived]
-    self.save(validate: false)
+    self.save(validate: true)
     MobileApp.public_activity_on
     self.create_activity :archived
   end
