@@ -1,7 +1,7 @@
 require "logger"
 namespace :users do
     desc "Deactivate Users: Deactivate users who have not logged into the system in last 90 days"
-    task :deactivate_users do
+    task :deactivate_users => :environment do
         logger = Logger.new(STDOUT)
 
         logger.info('Program Name: Deactivate Users')
