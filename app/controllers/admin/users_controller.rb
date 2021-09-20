@@ -17,7 +17,7 @@ class Admin::UsersController < Admin::AdminController
       format.html { @users = [] }
       format.json { render "index" }
       format.xml { render xml:  @users }
-      format.csv { send_data  @users.to_csv }
+      format.csv { send_file  @users.to_csv,filename: "users.csv",type:"text/csv" }
       end
   end
 
