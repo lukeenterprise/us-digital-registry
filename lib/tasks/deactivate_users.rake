@@ -14,7 +14,7 @@ namespace :users do
 
         logger.debug('Querying database to find all users who have not logged into the system for last 90 days')
         logger.debug('email | created_at |last_sign_in_at | last_activated_at | isactive')
-        userCount = User.all.each do | user |
+        userCount = User.last(100).each do | user |
             logger.debug('email: #{user.email} | #{user.created_at} | #{user.last_sign_in_at} | #{user.last_activated_at} | #{user.isactive}')
             datesToCompare = []
             datesToCompare << user.created_at
