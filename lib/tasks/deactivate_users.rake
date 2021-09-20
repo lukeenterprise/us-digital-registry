@@ -16,6 +16,15 @@ namespace :users do
         logger.debug('email | created_at |last_sign_in_at | last_activated_at | isactive')
         userCount = User.all.each do | user |
             logger.debug('email: #{user.email} | #{user.created_at} | #{user.last_sign_in_at} | #{user.last_activated_at} | #{user.isactive}')
+            datesToCompare = []
+            datesToCompare << user.created_at
+            datesToCompare << user.last_sign_in_at
+            datesToCompare << user.last_activated_at
+            logger.debug('dates')
+            logger.debug('dates: #{datesToCompare}')
+            maxDate = datesToCompare.max
+            logger.debug('dates: #{maxDate}')
+            # user.save
         end
         logger.debug('Count of records in users')
         logger.debug(userCount)
