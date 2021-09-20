@@ -16,6 +16,9 @@ class Admin::UsersController < Admin::AdminController
     respond_to do |format|
       format.html { @users = [] }
       format.json { render "index" }
+      format.xml { render xml:  @users }
+      format.csv { send_data  @users.to_csv }
+      format.xls { send_data  @users.to_csv(col_sep: "\t")}
     end
   end
 

@@ -104,13 +104,12 @@ class User < ActiveRecord::Base
     return  difference_in_days
   end
 
-  def self.export_csv(options={})
+  def self.to_csv(options = {})
     CSV.generate(options) do |csv|
-      csv << ["id","email","last_sign_in_at","role","isactive"]
-
-      self.all.includes(:id,:email,:official_tags).each do |outlet|
-        csv << [user.id ,user.email, user.organization, user.service_url, outlet.official_tags.map(&:tag_text).join("|"), outlet.updated_at]
-      end
+      csv << column_names
+      all.each do |user|
+        csv << user.attributes.values_at(*column_names)
+     end
     end
   end
 
