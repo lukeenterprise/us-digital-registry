@@ -105,14 +105,14 @@ class User < ActiveRecord::Base
   end
 
   def self.to_csv
-    Rails.logger.info 'to csv'
-    attributes = %w{id email last_sign_in_at}
-    CSV.generate(headers: true) do |csv|
-      csv << attributes
+    Rails.logger.info 'test to csv'
+    CSV.generate do |csv|
+      csv << column_names
       all.each do |user|
-        csv << attributes.map{ |attr| user.send(attr) }
+        csv << user.attributes.values_at(*column_names)
       end
     end
+    Rails.logger.info 'test generated'
   end
   
 end
