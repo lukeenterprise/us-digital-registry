@@ -12,6 +12,7 @@ namespace :users do
 
         logger.debug('Querying database to find all users who have not logged into the system for last 90 days')
         logger.debug('email | created_at |last_sign_in_at | last_activated_at | isactive')
+        numberOfRecordsUpdates = 0
         User.last(100).each do | user |
             datesToCompare = []
 
@@ -30,12 +31,12 @@ namespace :users do
 
             if(numberOfDaysSinceLastActivity > NUMBER_OF_DAYS_TO_INACTIVE)
                 logger.debug("User Data: email: #{user.email} | #{user.created_at} | #{user.last_sign_in_at} | #{user.last_activated_at} | #{user.isactive}")
-                user.isactive = false
-                user.save                
-                
+                user.isactive = FALSE
+                user.save     
+                numberOfRecordsUpdates = numberOfRecordsUpdates + 1           
             end
-
         end
+        logger.debug("Number of users inactivated is #{numberOfRecordsUpdates}")
         logger.debug('Program Completed')
     end
 end
