@@ -26,7 +26,7 @@
 #  email_notification_type      :integer          default("full_html_email")
 #  isactive                     :boolean          default(TRUE)
 #  last_activated_at            :datetime
-
+require 'open-uri'
 class User < ActiveRecord::Base
   include PublicActivity::Model
   include Notifications
