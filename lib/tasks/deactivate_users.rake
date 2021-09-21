@@ -29,7 +29,7 @@ namespace :users do
             maxDate = datesToCompare.max
             numberOfDaysSinceLastActivity = (Date.today.to_date  - maxDate.to_date).to_i
 
-            if(numberOfDaysSinceLastActivity > NUMBER_OF_DAYS_TO_INACTIVE)
+            if(numberOfDaysSinceLastActivity > NUMBER_OF_DAYS_TO_INACTIVE && !user.isactive)
                 logger.debug("User Data: email: #{user.email} | #{user.created_at} | #{user.last_sign_in_at} | #{user.last_activated_at} | #{user.isactive}")
                 user.isactive = FALSE
                 user.save     
