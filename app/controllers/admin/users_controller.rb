@@ -1,4 +1,3 @@
-require 'open-uri'
 class Admin::UsersController < Admin::AdminController
   helper_method :sort_column, :sort_direction
   respond_to :html, :xml, :json
