@@ -2,6 +2,7 @@ require "logger"
 namespace :users do
     desc "Deactivate Users: Deactivate users who have not logged into the system in last 90 days"
     task :deactivate_users => :environment do
+        NUMBER_OF_DAYS_TO_INACTIVE = 90
         logger = Logger.new(STDOUT)
 
         logger.info('Program Name: Deactivate Users')
@@ -9,25 +10,37 @@ namespace :users do
 
         logger.debug('Program begin')
 
-        logger.debug('Listing all environment keys')
-        logger.debug(ENV.keys)
-
         logger.debug('Querying database to find all users who have not logged into the system for last 90 days')
         logger.debug('email | created_at |last_sign_in_at | last_activated_at | isactive')
-        userCount = User.last(100).each do | user |
-            logger.debug('email: #{user.email} | #{user.created_at} | #{user.last_sign_in_at} | #{user.last_activated_at} | #{user.isactive}')
+        User.last(100).each do | user |
             datesToCompare = []
-            datesToCompare << user.created_at
-            datesToCompare << user.last_sign_in_at
-            datesToCompare << user.last_activated_at
-            logger.debug('dates')
-            logger.debug('dates: #{datesToCompare}')
+
+            if user.created_at.try(:to_date)
+                datesToCompare << user.created_at.to_date
+            end
+            if user.last_sign_in_at.try(:to_date)
+                datesToCompare << user.last_sign_in_at.to_date
+            end
+            if user.last_activated_at.try(:to_date)
+                datesToCompare << user.last_activated_at.to_date
+            end
+
+
             maxDate = datesToCompare.max
-            logger.debug('dates: #{maxDate}')
-            # user.save
+
+            numberOfDaysSinceLastActivity = (Date.today.to_date  - maxDate.to_date).to_i
+
+            if(numberOfDaysSinceLastActivity > NUMBER_OF_DAYS_TO_INACTIVE)
+                logger.debug("User Data: email: #{user.email} | #{user.created_at} | #{user.last_sign_in_at} | #{user.last_activated_at} | #{user.isactive}")
+                # logger.debug("All dates: #{datesToCompare}")
+                # logger.debug("Max dates: #{maxDate}")
+                # logger.debug("Number of Days Since Last Activity : #{numberOfDaysSinceLastActivity}")
+                user.isactive = false
+                user.save                
+                
+            end
+
         end
-        logger.debug('Count of records in users')
-        logger.debug(userCount)
 
         # logger.debug('Update user to set active to false')
 
