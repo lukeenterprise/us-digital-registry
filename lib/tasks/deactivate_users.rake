@@ -25,25 +25,17 @@ namespace :users do
                 datesToCompare << user.last_activated_at.to_date
             end
 
-
             maxDate = datesToCompare.max
-
             numberOfDaysSinceLastActivity = (Date.today.to_date  - maxDate.to_date).to_i
 
             if(numberOfDaysSinceLastActivity > NUMBER_OF_DAYS_TO_INACTIVE)
                 logger.debug("User Data: email: #{user.email} | #{user.created_at} | #{user.last_sign_in_at} | #{user.last_activated_at} | #{user.isactive}")
-                # logger.debug("All dates: #{datesToCompare}")
-                # logger.debug("Max dates: #{maxDate}")
-                # logger.debug("Number of Days Since Last Activity : #{numberOfDaysSinceLastActivity}")
                 user.isactive = false
                 user.save                
                 
             end
 
         end
-
-        # logger.debug('Update user to set active to false')
-
         logger.debug('Program Completed')
     end
 end
