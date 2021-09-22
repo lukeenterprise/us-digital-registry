@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
       csv << (columns_for_csv + ["agency"])
 
       self.all.includes(:agency).each do |user|
-        csv << (user.attributes.values_at(*columns_for_csv) + [user.agencies.map(&:name).join("|")])
+        csv << (user.attributes.values_at(*columns_for_csv) + [user.agency.map(&:name).join("|")])
       end
     end
     return csv_file
