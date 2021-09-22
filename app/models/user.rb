@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
 
 
   def self.to_csv(options = {})
-    attributes = %w{id email sign_in_count agency_id role isactive last_sign_in_at idle_days agency}
+    attributes = %w{id email sign_in_count agency_id role isactive last_sign_in_at idle_days}
     csv_file = CSV.generate(headers: true) do |csv|
       csv << attributes 
       self.all.each do |user|
