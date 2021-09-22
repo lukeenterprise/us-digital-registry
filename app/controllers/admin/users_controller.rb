@@ -18,7 +18,7 @@ class Admin::UsersController < Admin::AdminController
     @users = @users
     respond_to do |format|
       format.html { @users = [] }
-      format.json { send_file  @users.to_csv,:type => 'application/json;' }
+      format.json { render "index" }
       format.xml { render xml:  @users }
       format.csv { send_file  @users.to_csv,:type => 'text/csv; charset=iso-8859-1; header=present',:disposition => "attachment; filename=text.csv" }
       end
