@@ -26,7 +26,7 @@
 #  email_notification_type      :integer          default("full_html_email")
 #  isactive                     :boolean          default(TRUE)
 #  last_activated_at            :datetime
-require 'open-uri'
+
 class User < ActiveRecord::Base
   include PublicActivity::Model
   include Notifications
@@ -106,14 +106,14 @@ class User < ActiveRecord::Base
 
   def self.to_csv
     Rails.logger.info 'test to csv'
-    attributes = %w{id email}
-    CSV.generate(headers: true) do |csv|
-      csv << attributes
+    CSV.generate do |csv|
+      csv << column_names
       all.each do |user|
-        csv << attributes.map{ |attr| user.send(attr)}
+        csv << user.attributes.values_at(*column_names)
       end
     end
     Rails.logger.info 'test generated'
   end
-  
+    
+
 end
