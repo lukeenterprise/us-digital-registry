@@ -20,7 +20,7 @@ class Admin::UsersController < Admin::AdminController
       format.html { @users = [] }
       format.json { render "index" }
       format.xml { render xml:  @users }
-      format.csv { send_file  @users.to_csv,:type => 'text/csv; charset=iso-8859-1; header=present',:disposition => "attachment; filename=text.csv" }
+      format.csv {render plain:  @users.to_csv }
       end
   
   end

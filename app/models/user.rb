@@ -106,6 +106,7 @@ class User < ActiveRecord::Base
 
   def self.to_csv
     Rails.logger.info 'test to csv'
+    Rails.logger.info column_names
     CSV.generate do |csv|
       csv << column_names
       all.each do |user|
