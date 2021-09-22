@@ -108,10 +108,10 @@ class User < ActiveRecord::Base
   def self.to_csv(options = {})
     csv_file = CSV.generate(options) do |csv|
       columns_for_csv = ["id","email","sign_in_count","agency_id","role","isactive"]
-      csv << (columns_for_csv + ["agency"])
+      csv << (columns_for_csv )
 
       self.all.includes(:agency).each do |user|
-        csv << (user.attributes.values_at(*columns_for_csv) + [user.agency.map(&:name).join("|")])
+        csv << (user.attributes.values_at(*columns_for_csv))
       end
     end
     return csv_file
