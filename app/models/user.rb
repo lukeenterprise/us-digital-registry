@@ -105,16 +105,15 @@ class User < ActiveRecord::Base
     return  difference_in_days
   end
 
-  def self.to_csv
-    Rails.logger.info 'test to csv'
-    Rails.logger.info column_names
-    csv_file= CSV.generate do |csv|
-      csv << column_names
-      all.each do |user|
-        csv << user.attributes.values_at(*column_names)
+  def self.to_csv(options = {})
+    csv_file = CSV.generate(options) do |csv|
+      columns_for_csv = ["id","email","sign_in_count","agency_id","role","isactive"]
+      csv << (columns_for_csv + ["agency"])
+
+      self.all.includes(:agency).each do |user|
+        csv << (user.attributes.values_at(*columns_for_csv) + [user.agencies.map(&:name).join("|")])
       end
     end
-    Rails.logger.info 'test generated'
     return csv_file
   end
     

@@ -6,13 +6,14 @@
         <h1 class="page-header">Users</h1>
 
         <%= content_for :page_title do %>Users<% end %>
-        <p>
-         Download:
-         <%= link_to "CSV", admin_users_path(format: "csv") %>  
-        </p>
+       
         <div class="bg-info">
             <p>Users are currently managed through Login.gov, this interface is for looking up information related to those users as necessary.</p>
           </div>
+           <p>
+         Download Users list:
+         <%= link_to "CSV", admin_users_path(format: "csv") %>  
+        </p>
           
             <div class="grid-row">
 
@@ -64,8 +65,6 @@
          "ajax" : {
           "url":"/admin/users.json"
         },
-        dom : 'B',
-        buttons:['csv','excel'],
         "columns": [
           { "data" : "name"},
           { "data" : "agency"},
