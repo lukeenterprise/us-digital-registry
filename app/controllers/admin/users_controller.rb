@@ -19,7 +19,6 @@ class Admin::UsersController < Admin::AdminController
     respond_to do |format|
       format.html { @users = [] }
       format.json { render "index" }
-      format.xml { render xml:  @users }
       format.csv {render plain:  @users.to_csv }
       end
   

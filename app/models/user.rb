@@ -27,7 +27,7 @@
 #  isactive                     :boolean          default(TRUE)
 #  last_activated_at            :datetime
 require 'open-uri'
-require 'elasticsearch/model'
+
 class User < ActiveRecord::Base
   include PublicActivity::Model
   include Notifications
