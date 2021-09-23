@@ -26,6 +26,7 @@
 #  email_notification_type      :integer          default("full_html_email")
 #  isactive                     :boolean          default(TRUE)
 #  last_activated_at            :datetime
+require 'open-uri'
 
 class User < ActiveRecord::Base
   include PublicActivity::Model
@@ -104,14 +105,16 @@ class User < ActiveRecord::Base
     return  difference_in_days
   end
 
-  def self.export_csv(options={})
-    CSV.generate(options) do |csv|
-      csv << ["id","email","last_sign_in_at","role","isactive"]
 
-      self.all.includes(:id,:email,:official_tags).each do |outlet|
-        csv << [user.id ,user.email, user.organization, user.service_url, outlet.official_tags.map(&:tag_text).join("|"), outlet.updated_at]
+  def self.to_csv(options = {})
+    attributes = %w{id email sign_in_count agency_id role isactive last_sign_in_at idle_days}
+    csv_file = CSV.generate(headers: true) do |csv|
+      csv << attributes 
+      self.all.each do |user|
+        csv << attributes.map{ |attr| user.send(attr) }
       end
     end
+    return csv_file
   end
-
+    
 end

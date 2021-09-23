@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'csv'
+require 'json'
 class Admin::UsersController < Admin::AdminController
   helper_method :sort_column, :sort_direction
   respond_to :html, :xml, :json
@@ -16,7 +19,9 @@ class Admin::UsersController < Admin::AdminController
     respond_to do |format|
       format.html { @users = [] }
       format.json { render "index" }
-    end
+      format.csv {render plain:  @users.to_csv }
+      end
+  
   end
 
   # GET /users/1
@@ -111,10 +116,11 @@ class Admin::UsersController < Admin::AdminController
     end
   end
   def admin_users_export                         
-      @users = users.es_search(params, sort_column, sort_direction)  
-      respond_to do |format|
-      format.csv { render plain: @users.to_csv }
-      end
+      CSV.open("test.csv","w")do |csv|
+      JSON.parse(File.open("/admin/users.json").read).each do |hash|
+      csv << hash.values
+    end
+  end
   end
   private
   # Use callbacks to share common setup or constraints between actions.
