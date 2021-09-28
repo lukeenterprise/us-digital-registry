@@ -17,6 +17,6 @@ class NotificationMailer < ActionMailer::Base
     #   render "body"
     # }
 
-    end
+    #end
   end
 end
