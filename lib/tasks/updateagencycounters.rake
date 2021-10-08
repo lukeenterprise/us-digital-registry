@@ -5,9 +5,9 @@ namespace :agencies do
     
         logger = Logger.new(STDOUT)
         logger.debug('Program begin')
-        agency.all.each do | agency |
-            agency.update_counters
-            agency.save
+        Agency.all.each do | agencycount |
+            agencycount.update_counters
+            agencycount.save
         end
       
         logger.debug('Program Completed')
