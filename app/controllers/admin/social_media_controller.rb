@@ -82,7 +82,7 @@ class Admin::SocialMediaController < Admin::AdminController
   end
 
   def datatables
-    @outlets = Outlet
+    @outlets = Outlet.uniq
     respond_to do |format|
       format.json {
         render json: {
