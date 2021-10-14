@@ -10,13 +10,12 @@ class NotificationMailer < ActionMailer::Base
     else (@notification.item_type == "User") 
        subject = "Your U.S. Digital Registry account has been activated"
     end
-    body = "#{@notification.message}"
+    body = "#{@notification.message}"   
+    mail(:to => @notification.user.email, :subject => subject) do |format|
+    format.html {
+      render "body"
+    }
     Rails.logger.info "email notification sent"
-    # mail(:to => @notification.user.email, :subject => subject) do |format|
-    # format.html {
-    #   render "body"
-    # }
-
-    #end
+    end
   end
 end

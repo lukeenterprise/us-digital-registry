@@ -15,7 +15,7 @@
 
               <div class="grid-col-5 grid-offset-1">
                 <%= label :agency_selector, "Search Agency", {class: 'usa-label'} %>
-                <%= select_tag :agency_selector, options_for_select([["All",""]]+Agency.where("published_outlet_count > 0").order("name ASC").collect{|agency| [agency.name+"(#{agency.draft_outlet_count})/(#{agency.published_outlet_count})",agency.name]},params[:agency_selector]), {class: 'usa-input'} %>
+                <%= select_tag :agency_selector, options_for_select([["All",""]]+Agency.where("published_outlet_count > 0").order("name ASC").collect{|agency| [agency.name+"(#{agency.draft_outlet_count}/#{agency.published_outlet_count})",agency.name]},params[:agency_selector]), {class: 'usa-input'} %>
 
               </div>
 
