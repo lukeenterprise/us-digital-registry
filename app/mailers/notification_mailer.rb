@@ -1,7 +1,7 @@
 class NotificationMailer < ActionMailer::Base
   default from: "US Digital Registry <digitalregistry@usa.gov>",
     reply_to: "US Digital Registry Team <usdigitalregistry@gsa.gov>"
-
+  Rails.logger.info "Notification Mailer"
   def email(notification)
     @notification = notification
     subject = "U.S. Digital Registry"
@@ -15,7 +15,6 @@ class NotificationMailer < ActionMailer::Base
     format.html {
       render "body"
     }
-    Rails.logger.info "email notification sent"
     end
   end
 end
