@@ -133,6 +133,7 @@ class Admin::SocialMediaController < Admin::AdminController
     respond_to do |format|
       if @outlet.save
         @outlet.published!
+        @outlet.build_notifications(:published)
         # @outlet.build_notifications(:created) #may want to remove
         ELASTIC_SEARCH_CLIENT.index  index: 'outlets', type: 'outlet', id: @outlet.id, body: @outlet.as_indexed_json
         format.html { redirect_to admin_outlet_path(@outlet), notice: "Social Media Account was successfully created and published." }
