@@ -62,15 +62,14 @@ class Agency < ActiveRecord::Base
 
 
   def update_counters
-    self.draft_gallery_count = galleries.where(status: 1).count
-    self.published_gallery_count = galleries.where.not(status: 1).count
+    self.draft_gallery_count = galleries.count
+    self.published_gallery_count = galleries.where(status: 1).count
 
+    self.draft_outlet_count = outlets.count
+    self.published_outlet_count = outlets.where(status: 1).count
 
-    self.draft_outlet_count = outlets.where(status: 1).count
-    self.published_outlet_count = outlets.where.not(status: 1).count
-
-    self.draft_mobile_app_count = mobile_apps.where(status: 1).count
-    self.published_mobile_app_count = mobile_apps.where.not(status: 1).count
+    self.draft_mobile_app_count = mobile_apps.count
+    self.published_mobile_app_count = mobile_apps.where(status: 1).count
   end
 
   def contact_emails(options = {})

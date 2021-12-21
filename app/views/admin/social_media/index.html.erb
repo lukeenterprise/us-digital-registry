@@ -15,7 +15,7 @@
 
               <div class="grid-col-5 grid-offset-1">
                 <%= label :agency_selector, "Search Agency", {class: 'usa-label'} %>
-                <%= select_tag :agency_selector, options_for_select([["All",""]]+Agency.where("published_outlet_count > 0").order("name ASC").collect{|agency| [agency.name+" (#{agency.published_outlet_count})",agency.name]},params[:agency_selector]), {class: 'usa-input'} %>
+                <%= select_tag :agency_selector, options_for_select([["All",""]]+Agency.where("published_outlet_count > 0").order("name ASC").collect{|agency| [agency.name+"(#{agency.draft_outlet_count}/#{agency.published_outlet_count})",agency.name]},params[:agency_selector]), {class: 'usa-input'} %>
 
               </div>
 
@@ -42,6 +42,7 @@
                  <p style="margin:0; font-size: .9em; width: 100%; max-width: 100%;">A maximum of 1000 records at a time. File will be exported as a CSV (Comma Seperated Values) file.</p>
                </div>
             <% end %>
+           
             <div class="grid-row">
               <div class="grid-col-12">
 
